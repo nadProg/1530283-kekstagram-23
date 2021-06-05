@@ -5,12 +5,12 @@ const MAX_LIKES = 200;
 
 const DESCRIPTIONS = new Array(10).fill('Описание - ').map((item, index) => item + ++index);
 
-const MIN_COMMENT_ID = 10;
-const MAX_COMMENT_ID = 20;
+const MIN_COMMENT_ID = 100;
+const MAX_COMMENT_ID = 999;
 const MAX_COMMENTS_AMOUNT = 5;
 
-const MIN_AVATAR_ID = 1;
-const MAX_AVATAR_ID = 6;
+const MIN_USER_ID = 1;
+const MAX_USER_ID = 6;
 
 const MESSAGE_SENTENCES = [
   'Всё отлично!',
@@ -20,6 +20,10 @@ const MESSAGE_SENTENCES = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?',
   'Имена авторов также должны быть случайными. Набор имён для комментаторов составьте сами. Подставляйте случайное имя в поле name.',
+];
+
+const USER_NAMES = [
+  'Вася', 'Петя', 'Маша', 'Оля', 'Женя', 'Юра',
 ];
 
 /**
@@ -119,7 +123,7 @@ const photos = photoIds.map(createPhoto);
 
 console.log(photos);
 
-const getAvatar = () => `img/avatar-${getRandomInteger(MIN_AVATAR_ID, MAX_AVATAR_ID)}.svg`;
+const getAvatar = (id) => `img/avatar-${id}.svg`;
 
 const getMessage = () => {
   const MAX_INDEX = MESSAGE_SENTENCES.length - 1;
@@ -145,11 +149,39 @@ const getMessage = () => {
   return message;
 };
 
-console.log(getMessage());
-console.log(getMessage());
-console.log(getMessage());
-console.log(getMessage());
-console.log(getMessage());
+const getCommentId = (() => {
+  const ids = [];
+
+  return () => {
+    let id;
+
+    do {
+      id = getRandomInteger(MIN_COMMENT_ID, MAX_COMMENT_ID);
+    } while (ids.includes(id));
+
+
+    ids.push(id);
+
+    return id;
+  };
+})();
+
+const createComment = (id) => {
+  const userId = getRandomInteger(MIN_USER_ID, MAX_USER_ID);
+
+  return {
+    id,
+    url: getAvatar(userId),
+    message: getMessage(),
+    likes: getLikes(),
+    name: USER_NAMES[userId - 1],
+  };
+};
+
+console.table(createComment(getCommentId()));
+console.table(createComment(getCommentId()));
+console.table(createComment(getCommentId()));
+console.table(createComment(getCommentId()));
 
 // const objectTemplate = {
 //   id: {
