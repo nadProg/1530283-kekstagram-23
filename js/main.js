@@ -1,3 +1,10 @@
+const PHOTOS_AMOUNT = 25;
+const MIN_LIKES = 15;
+const MAX_LIKES = 200;
+const DESCRIPTIONS = new Array(10).fill('Описание - ').map((item, index) => item + ++index);
+const MIN_AVATAR_ID = 1;
+const MAX_AVATAR_ID = 6;
+
 /**
  * Возвращает случайное целое число в заданном диапазоне.
  * При передаче дробных значений границ диапазона учитывается только целая часть.
@@ -21,9 +28,6 @@ const getRandomInteger = (min, max) => {
  * @returns {boolean} Возвращает true, если длина строки не превышает максимально допустимого значения. Возвращает false, в остальных случаях.
  */
 const checkMaxLength = (string, maxLength) => string.length <= maxLength;
-
-getRandomInteger(0, 10);
-checkMaxLength('Hello World!', 140);
 
 /**
  * Возвращает упорядоченный массив целых чисел из заданного диапазона.
@@ -62,8 +66,6 @@ const shuffle = (array) => {
 
 const getShuffledIntegerSequence = (min, max) => shuffle(getIntegerSequence(min, max));
 
-console.log(getShuffledIntegerSequence(1, 25));
-
 /**
  * Вовзращает случайного значение из переданного массива значений.
  * @param {Array} array - Массив значений.
@@ -77,20 +79,30 @@ const getRandomElement = (array) => {
   return array[randomIndex];
 };
 
-const getDescription = () => {
-  const descriptions = new Array(10).fill('Описание - ').map((item, index) => item + ++index);
+const getUrl = (id) => `photos/${id}.jpg`;
 
-  return getRandomElement(descriptions);
-};
+const getDescription = () => getRandomElement(DESCRIPTIONS);
 
-console.log(getDescription());
-console.log(getDescription());
-console.log(getDescription());
-console.log(getDescription());
-console.log(getDescription());
+const getLikes = () => getRandomInteger(MIN_LIKES, MAX_LIKES);
 
-// const getUrl = (id) => `photos/${id}.jpg`;
-// const getAvatar = (id) => `img/avatar-${id}.svg`;
+// Временно создает пустой массив комментариев.
+const getComments = () => [];
+
+const photoIds = getShuffledIntegerSequence(1, PHOTOS_AMOUNT);
+
+const createPhoto = (id) => ({
+  id,
+  url: getUrl(id),
+  description: getDescription(),
+  likes: getLikes(),
+  comments: getComments(),
+});
+
+const photos = photoIds.map(createPhoto);
+
+console.log(photos);
+
+const getAvatar = () => `img/avatar-${getRandomInteger(MIN_AVATAR_ID, MAX_AVATAR_ID)}.svg`;
 
 // const objectTemplate = {
 //   id: {
