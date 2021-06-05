@@ -9,9 +9,9 @@ const getRandomInteger = (min, max) => {
   max = Math.trunc(max);
   min = Math.trunc(min);
 
-  const range = max > min ? max - min : 0;
+  const range = max > min ? max - min + 1 : 1;
 
-  return min + Math.round(range * Math.random());
+  return min + Math.floor(range * Math.random());
 };
 
 /**
