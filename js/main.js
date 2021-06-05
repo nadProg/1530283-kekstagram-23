@@ -160,7 +160,7 @@ const getMessage = () => {
 
 const getAvatar = (id) => `img/avatar-${id}.svg`;
 
-const getUserName = (id) => USER_NAMES(id - 1);
+const getUserName = (id) => USER_NAMES[id - 1];
 
 const getUserData = () => {
   const id = getRandomInteger(MIN_USER_ID, MAX_USER_ID);
