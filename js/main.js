@@ -1,9 +1,26 @@
 const PHOTOS_AMOUNT = 25;
+
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
+
 const DESCRIPTIONS = new Array(10).fill('Описание - ').map((item, index) => item + ++index);
+
+const MIN_COMMENT_ID = 10;
+const MAX_COMMENT_ID = 20;
+const MAX_COMMENTS_AMOUNT = 5;
+
 const MIN_AVATAR_ID = 1;
 const MAX_AVATAR_ID = 6;
+
+const MESSAGE_SENTENCES = [
+  'Всё отлично!',
+  'В целом всё неплохо. Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?',
+  'Имена авторов также должны быть случайными. Набор имён для комментаторов составьте сами. Подставляйте случайное имя в поле name.',
+];
 
 /**
  * Возвращает случайное целое число в заданном диапазоне.
@@ -103,6 +120,36 @@ const photos = photoIds.map(createPhoto);
 console.log(photos);
 
 const getAvatar = () => `img/avatar-${getRandomInteger(MIN_AVATAR_ID, MAX_AVATAR_ID)}.svg`;
+
+const getMessage = () => {
+  const MAX_INDEX = MESSAGE_SENTENCES.length - 1;
+  const firstIndex = getRandomInteger(0, MAX_INDEX);
+
+  const isOneSentenceMessage = !!Math.round(Math.random());
+  if (isOneSentenceMessage) {
+    return MESSAGE_SENTENCES[firstIndex];
+  }
+
+  let secondIndex;
+  while (!secondIndex) {
+    const index = getRandomInteger(0, MAX_INDEX);
+    if (index === firstIndex) {
+      continue;
+    } else {
+      secondIndex = index;
+    }
+  }
+
+  const message = [firstIndex, secondIndex].map((index) => MESSAGE_SENTENCES[index]).join(' ');
+
+  return message;
+};
+
+console.log(getMessage());
+console.log(getMessage());
+console.log(getMessage());
+console.log(getMessage());
+console.log(getMessage());
 
 // const objectTemplate = {
 //   id: {
