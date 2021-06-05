@@ -62,21 +62,35 @@ const shuffle = (array) => {
 
 const getShuffledIntegerSequence = (min, max) => shuffle(getIntegerSequence(min, max));
 
-console.log(getIntegerSequence(1, 25));
-console.log(getIntegerSequence(5, 10));
-console.log(getIntegerSequence(18, 20));
-console.log(getIntegerSequence(-5, 5));
-console.log(getIntegerSequence(7.5, 12.9));
-console.log(getIntegerSequence(7.5, 7.9));
-console.log(getIntegerSequence(7.5, -7.9));
-
 console.log(getShuffledIntegerSequence(1, 25));
-console.log(getShuffledIntegerSequence(5, 10));
-console.log(getShuffledIntegerSequence(18, 20));
-console.log(getShuffledIntegerSequence(-5, 5));
-console.log(getShuffledIntegerSequence(7.5, 12.9));
-console.log(getShuffledIntegerSequence(7.5, 7.9));
-console.log(getShuffledIntegerSequence(7.5, -7.9));
+
+/**
+ * Вовзращает случайного значение из переданного массива значений.
+ * @param {Array} array - Массив значений.
+ * @returns {any} Случайное значение из переданного массива.
+ */
+const getRandomElement = (array) => {
+  const min = 0;
+  const max = array.length - 1;
+  const randomIndex = getRandomInteger(min, max);
+
+  return array[randomIndex];
+};
+
+const getDescription = () => {
+  const descriptions = new Array(10).fill('Описание - ').map((item, index) => item + ++index);
+
+  return getRandomElement(descriptions);
+};
+
+console.log(getDescription());
+console.log(getDescription());
+console.log(getDescription());
+console.log(getDescription());
+console.log(getDescription());
+
+// const getUrl = (id) => `photos/${id}.jpg`;
+// const getAvatar = (id) => `img/avatar-${id}.svg`;
 
 // const objectTemplate = {
 //   id: {
