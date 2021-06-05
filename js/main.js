@@ -5,9 +5,10 @@ const MAX_LIKES = 200;
 
 const DESCRIPTIONS = new Array(10).fill('Описание - ').map((item, index) => item + ++index);
 
+const MAX_COMMENTS_AMOUNT = 5;
+
 const MIN_COMMENT_ID = 100;
 const MAX_COMMENT_ID = 999;
-const MAX_COMMENTS_AMOUNT = 5;
 
 const MIN_USER_ID = 1;
 const MAX_USER_ID = 6;
@@ -106,23 +107,6 @@ const getDescription = () => getRandomElement(DESCRIPTIONS);
 
 const getLikes = () => getRandomInteger(MIN_LIKES, MAX_LIKES);
 
-// Временно создает пустой массив комментариев.
-const getComments = () => [];
-
-const photoIds = getShuffledIntegerSequence(1, PHOTOS_AMOUNT);
-
-const createPhoto = (id) => ({
-  id,
-  url: getUrl(id),
-  description: getDescription(),
-  likes: getLikes(),
-  comments: getComments(),
-});
-
-const photos = photoIds.map(createPhoto);
-
-console.log(photos);
-
 const getAvatar = (id) => `img/avatar-${id}.svg`;
 
 const getMessage = () => {
@@ -170,7 +154,7 @@ const createComment = (id) => {
   const userId = getRandomInteger(MIN_USER_ID, MAX_USER_ID);
 
   return {
-    id,
+    id: getCommentId(),
     url: getAvatar(userId),
     message: getMessage(),
     likes: getLikes(),
@@ -178,10 +162,27 @@ const createComment = (id) => {
   };
 };
 
-console.table(createComment(getCommentId()));
-console.table(createComment(getCommentId()));
-console.table(createComment(getCommentId()));
-console.table(createComment(getCommentId()));
+const getComments = () => {
+  const commentsAmount = getRandomInteger(0, MAX_COMMENTS_AMOUNT);
+
+  const comments = new Array(commentsAmount).fill().map(createComment);
+
+  return comments;
+};
+
+const photoIds = getShuffledIntegerSequence(1, PHOTOS_AMOUNT);
+
+const createPhoto = (id) => ({
+  id,
+  url: getUrl(id),
+  description: getDescription(),
+  likes: getLikes(),
+  comments: getComments(),
+});
+
+const photos = photoIds.map(createPhoto);
+
+console.log(photos);
 
 // const objectTemplate = {
 //   id: {
