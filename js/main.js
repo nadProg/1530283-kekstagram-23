@@ -1,7 +1,8 @@
-const PHOTOS_AMOUNT = 25;
+const MIN_PHOTO_ID = 1;
+const MAX_PHOTO_ID = 25;
 
-const MIN_LIKES = 15;
-const MAX_LIKES = 200;
+const MIN_LIKES_AMOUNT = 15;
+const MAX_LIKES_AMOUNT = 200;
 
 const DESCRIPTIONS = [
   'Пляжный сезон 2021',
@@ -14,6 +15,7 @@ const DESCRIPTIONS = [
   'Рок-фестиваль "Нашествие"',
 ];
 
+const MIN_COMMENTS_AMOUNT = 0;
 const MAX_COMMENTS_AMOUNT = 5;
 
 const MIN_COMMENT_ID = 100;
@@ -29,7 +31,6 @@ const MESSAGE_SENTENCES = [
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?',
-  'Имена авторов также должны быть случайными. Набор имён для комментаторов составьте сами. Подставляйте случайное имя в поле name.',
 ];
 
 const USER_NAMES = [
@@ -75,8 +76,7 @@ const getIntegerSequence = (min, max) => {
 
   const range = max > min ? max - min + 1 : 1;
 
-  const sequence = new Array(range).fill(min).map((item, index) => item + index);
-  return sequence;
+  return new Array(range).fill(min).map((item, index) => item + index);
 };
 
 /**
@@ -107,42 +107,15 @@ const getShuffledIntegerSequence = (min, max) => shuffle(getIntegerSequence(min,
 const getRandomElement = (array) => {
   const min = 0;
   const max = array.length - 1;
-  const randomIndex = getRandomInteger(min, max);
 
-  return array[randomIndex];
+  return array[getRandomInteger(min, max)];
 };
 
 const getUrl = (id) => `photos/${id}.jpg`;
 
 const getDescription = () => getRandomElement(DESCRIPTIONS);
 
-const getLikes = () => getRandomInteger(MIN_LIKES, MAX_LIKES);
-
-const getAvatar = (id) => `img/avatar-${id}.svg`;
-
-const getMessage = () => {
-  const MAX_INDEX = MESSAGE_SENTENCES.length - 1;
-  const firstIndex = getRandomInteger(0, MAX_INDEX);
-
-  const isOneSentenceMessage = !!Math.round(Math.random());
-  if (isOneSentenceMessage) {
-    return MESSAGE_SENTENCES[firstIndex];
-  }
-
-  let secondIndex;
-  while (!secondIndex) {
-    const index = getRandomInteger(0, MAX_INDEX);
-    if (index === firstIndex) {
-      continue;
-    } else {
-      secondIndex = index;
-    }
-  }
-
-  const message = [firstIndex, secondIndex].map((index) => MESSAGE_SENTENCES[index]).join(' ');
-
-  return message;
-};
+const getLikes = () => getRandomInteger(MIN_LIKES_AMOUNT, MAX_LIKES_AMOUNT);
 
 const getCommentId = (() => {
   const ids = [];
@@ -154,43 +127,69 @@ const getCommentId = (() => {
       id = getRandomInteger(MIN_COMMENT_ID, MAX_COMMENT_ID);
     } while (ids.includes(id));
 
-
     ids.push(id);
 
     return id;
   };
 })();
 
-const createComment = () => {
-  const userId = getRandomInteger(MIN_USER_ID, MAX_USER_ID);
+const getMessage = () => {
+  const min = 0;
+  const max = MESSAGE_SENTENCES.length - 1;
+  const getRandomIndex = () => getRandomInteger(min, max);
 
+  const firstIndex = getRandomIndex();
+
+  const isOneSentenceMessage = !!Math.round(Math.random());
+  if (isOneSentenceMessage) {
+    return MESSAGE_SENTENCES[firstIndex];
+  }
+
+  let secondIndex;
+  while (!secondIndex) {
+    const index = getRandomIndex();
+    if (index === firstIndex) {
+      continue;
+    } else {
+      secondIndex = index;
+    }
+  }
+
+  return [firstIndex, secondIndex].map((index) => MESSAGE_SENTENCES[index]).join(' ');
+};
+
+const getAvatar = (id) => `img/avatar-${id}.svg`;
+
+const getUserName = (id) => USER_NAMES(id - 1);
+
+const getUserData = () => {
+  const id = getRandomInteger(MIN_USER_ID, MAX_USER_ID);
   return {
-    id: getCommentId(),
-    url: getAvatar(userId),
-    message: getMessage(),
-    likes: getLikes(),
-    name: USER_NAMES[userId - 1],
+    avatar: getAvatar(id),
+    name: getUserName(id),
   };
 };
 
-const getComments = () => {
-  const commentsAmount = getRandomInteger(0, MAX_COMMENTS_AMOUNT);
+const createComment = () => ({
+  id: getCommentId(),
+  message: getMessage(),
+  ...getUserData(),
+});
 
-  const comments = new Array(commentsAmount).fill().map(createComment);
+const createComments = () => {
+  const commentsAmount = getRandomInteger(MIN_COMMENTS_AMOUNT, MAX_COMMENTS_AMOUNT);
 
-  return comments;
+  return new Array(commentsAmount).fill().map(createComment);
 };
-
-const photoIds = getShuffledIntegerSequence(1, PHOTOS_AMOUNT);
 
 const createPhoto = (id) => ({
   id,
   url: getUrl(id),
   description: getDescription(),
   likes: getLikes(),
-  comments: getComments(),
+  comments: createComments(),
 });
 
-const photos = photoIds.map(createPhoto);
+const createPhotos = () => getShuffledIntegerSequence(MIN_PHOTO_ID, MAX_PHOTO_ID).map(createPhoto);
 
-console.log(photos);
+createPhotos();
