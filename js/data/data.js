@@ -1,4 +1,6 @@
-import * as utils from '/js/utils/utils.js';
+import {getRandomInteger} from '/js/utils/get-random-integer.js';
+import {getRandomElement} from '/js/utils/get-random-element.js';
+import {getShuffledIntegerSequence} from '/js/utils/get-shuffled-integer-sequence.js';
 
 const MIN_PHOTO_ID = 1;
 const MAX_PHOTO_ID = 25;
@@ -41,9 +43,9 @@ const USER_NAMES = [
 
 const getUrl = (id) => `photos/${id}.jpg`;
 
-const getDescription = () => utils.getRandomElement(DESCRIPTIONS);
+const getDescription = () => getRandomElement(DESCRIPTIONS);
 
-const getLikes = () => utils.getRandomInteger(MIN_LIKES_AMOUNT, MAX_LIKES_AMOUNT);
+const getLikes = () => getRandomInteger(MIN_LIKES_AMOUNT, MAX_LIKES_AMOUNT);
 
 const getCommentId = (() => {
   const ids = [];
@@ -52,7 +54,7 @@ const getCommentId = (() => {
     let id;
 
     do {
-      id = utils.getRandomInteger(MIN_COMMENT_ID, MAX_COMMENT_ID);
+      id = getRandomInteger(MIN_COMMENT_ID, MAX_COMMENT_ID);
     } while (ids.includes(id));
 
     ids.push(id);
@@ -64,7 +66,7 @@ const getCommentId = (() => {
 const getMessage = () => {
   const min = 0;
   const max = MESSAGE_SENTENCES.length - 1;
-  const getRandomIndex = () => utils.getRandomInteger(min, max);
+  const getRandomIndex = () => getRandomInteger(min, max);
 
   const firstIndex = getRandomIndex();
 
@@ -91,7 +93,7 @@ const getAvatar = (id) => `img/avatar-${id}.svg`;
 const getUserName = (id) => USER_NAMES[id - 1];
 
 const getUserData = () => {
-  const id = utils.getRandomInteger(MIN_USER_ID, MAX_USER_ID);
+  const id = getRandomInteger(MIN_USER_ID, MAX_USER_ID);
   return {
     avatar: getAvatar(id),
     name: getUserName(id),
@@ -105,7 +107,7 @@ const createComment = () => ({
 });
 
 const createComments = () => {
-  const commentsAmount = utils.getRandomInteger(MIN_COMMENTS_AMOUNT, MAX_COMMENTS_AMOUNT);
+  const commentsAmount = getRandomInteger(MIN_COMMENTS_AMOUNT, MAX_COMMENTS_AMOUNT);
 
   return new Array(commentsAmount).fill().map(createComment);
 };
@@ -118,6 +120,6 @@ const createPhoto = (id) => ({
   comments: createComments(),
 });
 
-const createPhotos = () => utils.getShuffledIntegerSequence(MIN_PHOTO_ID, MAX_PHOTO_ID).map(createPhoto);
+const createPhotos = () => getShuffledIntegerSequence(MIN_PHOTO_ID, MAX_PHOTO_ID).map(createPhoto);
 
 console.log(createPhotos());
