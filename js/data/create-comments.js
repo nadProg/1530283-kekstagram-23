@@ -1,23 +1,4 @@
 import {getRandomInteger} from '/js/utils/get-random-integer.js';
-import {getRandomElement} from '/js/utils/get-random-element.js';
-import {getShuffledIntegerSequence} from '/js/utils/get-shuffled-integer-sequence.js';
-
-const MIN_PHOTO_ID = 1;
-const MAX_PHOTO_ID = 25;
-
-const MIN_LIKES_AMOUNT = 15;
-const MAX_LIKES_AMOUNT = 200;
-
-const DESCRIPTIONS = [
-  'Пляжный сезон 2021',
-  'Новая коллекция обуви Gucci',
-  'Новое поступление в IKEA',
-  'Японская кухня в ресторане Rыба',
-  'Испанская кухня в ресторане La Perla Seafood Bar',
-  'Автомобили премиум-класса',
-  'Концерт классической музыки',
-  'Рок-фестиваль "Нашествие"',
-];
 
 const MIN_COMMENTS_AMOUNT = 0;
 const MAX_COMMENTS_AMOUNT = 5;
@@ -40,12 +21,6 @@ const MESSAGE_SENTENCES = [
 const USER_NAMES = [
   'Вася', 'Петя', 'Маша', 'Оля', 'Женя', 'Юра',
 ];
-
-const getUrl = (id) => `photos/${id}.jpg`;
-
-const getDescription = () => getRandomElement(DESCRIPTIONS);
-
-const getLikes = () => getRandomInteger(MIN_LIKES_AMOUNT, MAX_LIKES_AMOUNT);
 
 const getCommentId = (() => {
   const ids = [];
@@ -112,14 +87,4 @@ const createComments = () => {
   return new Array(commentsAmount).fill().map(createComment);
 };
 
-const createPhoto = (id) => ({
-  id,
-  url: getUrl(id),
-  description: getDescription(),
-  likes: getLikes(),
-  comments: createComments(),
-});
-
-const createPhotos = () => getShuffledIntegerSequence(MIN_PHOTO_ID, MAX_PHOTO_ID).map(createPhoto);
-
-console.log(createPhotos());
+export {createComments};

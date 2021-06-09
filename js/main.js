@@ -1,1 +1,3 @@
-import './data/data.js';
+import {createPhotos} from './data/create-photos.js';
+
+console.log(createPhotos());
