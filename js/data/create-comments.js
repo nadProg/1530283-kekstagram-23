@@ -1,4 +1,4 @@
-import {getRandomInteger} from '/js/utils/get-random-integer.js';
+import {getRandomInteger} from '../utils.js';
 
 const MIN_COMMENTS_AMOUNT = 0;
 const MAX_COMMENTS_AMOUNT = 5;

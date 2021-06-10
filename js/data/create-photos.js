@@ -1,6 +1,4 @@
-import {getRandomInteger} from '/js/utils/get-random-integer.js';
-import {getRandomElement} from '/js/utils/get-random-element.js';
-import {getShuffledIntegerSequence} from '/js/utils/get-shuffled-integer-sequence.js';
+import {getRandomInteger, getRandomElement, getShuffledIntegerSequence} from '../utils.js';
 import {createComments} from './create-comments.js';
 
 const MIN_PHOTO_ID = 1;
