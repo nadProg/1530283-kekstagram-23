@@ -32,6 +32,4 @@ const createPhoto = (id) => ({
   comments: createComments(),
 });
 
-const createPhotos = () => getShuffledIntegerSequence(MIN_PHOTO_ID, MAX_PHOTO_ID).map(createPhoto);
-
-export {createPhotos};
+export const createPhotos = () => getShuffledIntegerSequence(MIN_PHOTO_ID, MAX_PHOTO_ID).map(createPhoto);

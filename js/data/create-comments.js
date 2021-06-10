@@ -81,10 +81,8 @@ const createComment = () => ({
   ...getUserData(),
 });
 
-const createComments = () => {
+export const createComments = () => {
   const commentsAmount = getRandomInteger(MIN_COMMENTS_AMOUNT, MAX_COMMENTS_AMOUNT);
 
   return new Array(commentsAmount).fill().map(createComment);
 };
-
-export {createComments};
