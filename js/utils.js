@@ -69,3 +69,11 @@ export const getIntegerSequence = (min, max) => {
 };
 
 export const getShuffledIntegerSequence = (min, max) => shuffle(getIntegerSequence(min, max));
+
+export const renderNodes = (nodes, container) => {
+  const fragment = document.createDocumentFragment();
+
+  nodes.forEach((node) => fragment.appendChild(node));
+
+  container.appendChild(fragment);
+};
