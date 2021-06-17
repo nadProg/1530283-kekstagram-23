@@ -1,3 +1,7 @@
 import './img-upload-form/img-upload-form.js';
-import './picture-gallery/picture-gallery.js';
+import {createPictures} from './data/create-pictures.js';
+import {renderPictures} from './picture-gallery/pictures.js';
 
+const pictures = createPictures();
+
+renderPictures(pictures);

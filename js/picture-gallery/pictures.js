@@ -4,6 +4,8 @@ const pictureTemplateNode = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
+const picturesContainerNode = document.querySelector('.pictures');
+
 const createPictureNode = ({url, likes, comments}) => {
   const pictureNode = pictureTemplateNode.cloneNode(true);
 
@@ -13,8 +15,6 @@ const createPictureNode = ({url, likes, comments}) => {
 
   return pictureNode;
 };
-
-const picturesContainerNode = document.querySelector('.pictures');
 
 export const renderPictures = (pictures) => {
   const pictureNodes = pictures.map(createPictureNode);
