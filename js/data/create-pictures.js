@@ -24,7 +24,7 @@ const getDescription = () => getRandomElement(DESCRIPTIONS);
 
 const getLikes = () => getRandomInteger(MIN_LIKES_AMOUNT, MAX_LIKES_AMOUNT);
 
-const createPhoto = (id) => ({
+const createPicture = (id) => ({
   id,
   url: getUrl(id),
   description: getDescription(),
@@ -32,4 +32,4 @@ const createPhoto = (id) => ({
   comments: createComments(),
 });
 
-export const createPhotos = () => getShuffledIntegerSequence(MIN_PHOTO_ID, MAX_PHOTO_ID).map(createPhoto);
+export const createPictures = () => getShuffledIntegerSequence(MIN_PHOTO_ID, MAX_PHOTO_ID).map(createPicture);

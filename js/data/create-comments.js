@@ -1,7 +1,7 @@
 import {getRandomInteger} from '../utils.js';
 
 const MIN_COMMENTS_AMOUNT = 0;
-const MAX_COMMENTS_AMOUNT = 5;
+const MAX_COMMENTS_AMOUNT = 22;
 
 const MIN_COMMENT_ID = 100;
 const MAX_COMMENT_ID = 999;
