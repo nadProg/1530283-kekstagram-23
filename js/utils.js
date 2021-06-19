@@ -91,3 +91,5 @@ export const showNode = (node) => {
 export const switchOnModalMode = () => bodyNode.classList.add(MODAL_OPEN_CLASS);
 
 export const switchOffModalMode = () => bodyNode.classList.remove(MODAL_OPEN_CLASS);
+
+export const isEscape = ({code}) => code === 'Escape';

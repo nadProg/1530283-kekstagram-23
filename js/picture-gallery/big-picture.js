@@ -1,3 +1,4 @@
+import {isEscape} from '../utils.js';
 import {hideNode, showNode} from '../utils.js';
 import {switchOnModalMode, switchOffModalMode} from '../utils.js';
 
@@ -38,8 +39,8 @@ const onBigPictureCancelClick = () => {
   hideBigPicture();
 };
 
-const onDocumentEscKeydown = ({code}) => {
-  if (code === 'Escape') {
+const onDocumentEscKeydown = (evt) => {
+  if (isEscape(evt)) {
     hideBigPicture();
   }
 };
