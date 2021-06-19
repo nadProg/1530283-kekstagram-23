@@ -35,11 +35,11 @@ const updateBigPicture = ({url, likes, comments, description}) => {
   socialCommentsNode.innerHTML = comments.map(getCommentItemHTML).reduce((html, li) => html + li, '');
 };
 
-const onBigPictureCancelClick = () => {
+const onCancelBtnNodeClick = () => {
   hideBigPicture();
 };
 
-const onDocumentEscKeydown = (evt) => {
+const onDocumentKeydown = (evt) => {
   if (isEscape(evt)) {
     hideBigPicture();
   }
@@ -49,8 +49,8 @@ function hideBigPicture() {
   hideNode(bigPictureNode);
   switchOffModalMode();
 
-  cancelBtnNode.removeEventListener('click', onBigPictureCancelClick);
-  document.removeEventListener('keydown', onDocumentEscKeydown);
+  cancelBtnNode.removeEventListener('click', onCancelBtnNodeClick);
+  document.removeEventListener('keydown', onDocumentKeydown);
 }
 
 export const showBigPicture = (picture) => {
@@ -59,6 +59,6 @@ export const showBigPicture = (picture) => {
 
   updateBigPicture(picture);
 
-  cancelBtnNode.addEventListener('click', onBigPictureCancelClick);
-  document.addEventListener('keydown', onDocumentEscKeydown);
+  cancelBtnNode.addEventListener('click', onCancelBtnNodeClick);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
