@@ -1,12 +1,12 @@
 import {
   isEscape, hideNode, showNode, switchOnModalMode, switchOffModalMode
 } from '../utils.js';
-import {initTextField, destroyTextField} from './text-field.js';
+import {initTextField, destroyTextField} from './text-fieldset.js';
 
-const formNode = document.querySelector('.img-upload__form');
-const overlayNode = formNode.querySelector('.img-upload__overlay');
-const uploadInputNode = formNode.querySelector('.img-upload__input');
-const cancelBtnNode = formNode.querySelector('.img-upload__cancel');
+const uploadFormNode = document.querySelector('.img-upload__form');
+const overlayNode = uploadFormNode.querySelector('.img-upload__overlay');
+const uploadInputNode = uploadFormNode.querySelector('.img-upload__input');
+const cancelBtnNode = uploadFormNode.querySelector('.img-upload__cancel');
 
 const onUploadInputNodeChange = () => {
   showForm();
@@ -38,7 +38,7 @@ function hideForm() {
   hideNode(overlayNode);
   switchOffModalMode();
 
-  formNode.reset();
+  uploadFormNode.reset();
   destroyTextField();
 
   uploadInputNode.addEventListener('change', onUploadInputNodeChange);
@@ -46,6 +46,6 @@ function hideForm() {
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
-export const initForm = () => {
+export const initUploadForm = () => {
   uploadInputNode.addEventListener('change', onUploadInputNodeChange);
 };
