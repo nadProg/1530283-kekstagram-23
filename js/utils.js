@@ -1,6 +1,8 @@
 const HIDDEN_CLASS = 'hidden';
 const MODAL_OPEN_CLASS = 'modal-open';
 const bodyNode = document.body;
+const TRAILING_SPACE = /[ ]+/g;
+const ALPHANUMERIC = /^[а-яёa-z0-9]+$/;
 
 /**
  * Проверяет соответствие длины строки максимально допустимому значению.
@@ -93,3 +95,11 @@ export const switchOnModalMode = () => bodyNode.classList.add(MODAL_OPEN_CLASS);
 export const switchOffModalMode = () => bodyNode.classList.remove(MODAL_OPEN_CLASS);
 
 export const isEscape = ({code}) => code === 'Escape';
+
+export const isEnter = ({code}) => code === 'Enter';
+
+export const isUnique = (array) => array.length === [...new Set(array)].length;
+
+export const deleteTrailingSpaces = (string) => string.trim().replace(TRAILING_SPACE, ' ');
+
+export const isAlphaNumeric = (string) => ALPHANUMERIC.test(string.toLowerCase());
