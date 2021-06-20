@@ -1,3 +1,7 @@
+const HIDDEN_CLASS = 'hidden';
+const MODAL_OPEN_CLASS = 'modal-open';
+const bodyNode = document.body;
+
 /**
  * Проверяет соответствие длины строки максимально допустимому значению.
  * @param {string} string - Проверяемая строка.
@@ -72,8 +76,20 @@ export const getShuffledIntegerSequence = (min, max) => shuffle(getIntegerSequen
 
 export const renderNodes = (nodes, container) => {
   const fragment = document.createDocumentFragment();
-
   nodes.forEach((node) => fragment.appendChild(node));
-
   container.appendChild(fragment);
 };
+
+export const hideNode = (node) => {
+  node.classList.add(HIDDEN_CLASS);
+};
+
+export const showNode = (node) => {
+  node.classList.remove(HIDDEN_CLASS);
+};
+
+export const switchOnModalMode = () => bodyNode.classList.add(MODAL_OPEN_CLASS);
+
+export const switchOffModalMode = () => bodyNode.classList.remove(MODAL_OPEN_CLASS);
+
+export const isEscape = ({code}) => code === 'Escape';
