@@ -1,7 +1,5 @@
 import {renderNodes} from '../utils.js';
 
-let renderedPictures = [];
-
 const pictureTemplateNode = document.querySelector('#picture')
   .content
   .querySelector('.picture');
@@ -20,25 +18,5 @@ const createPictureNode = ({id, url, likes, comments}) => {
 };
 
 export const renderPictures = (pictures) => {
-  renderedPictures = pictures;
   renderNodes(pictures.map(createPictureNode), picturesContainerNode);
 };
-
-export const setPicturesContainerClickHandler = (cb) => {
-  picturesContainerNode.addEventListener('click', (evt) => {
-    const pictureNode = evt.target.closest('.picture');
-
-    if (pictureNode && evt.currentTarget.contains(pictureNode)) {
-      evt.preventDefault();
-
-      const {id} = pictureNode.dataset;
-      const picture = renderedPictures.find((item) => item.id === Number(id));
-
-      if (picture) {
-        cb(picture);
-      }
-    }
-  });
-};
-
-

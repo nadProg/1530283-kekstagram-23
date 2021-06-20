@@ -1,10 +1,14 @@
 import './img-upload-form/img-upload-form.js';
 import {createPictures} from './data/create-pictures.js';
-import {showBigPicture} from './picture-gallery/big-picture.js';
-import {renderPictures, setPicturesContainerClickHandler} from './picture-gallery/pictures.js';
+import {renderPictures} from './picture-gallery/pictures.js';
+import {initBigPicture, setRenderedPictures} from './picture-gallery/big-picture.js';
 
+const renderGallery = (pictures) => {
+  renderPictures(pictures);
+  setRenderedPictures(pictures);
+};
 
-const pictures = createPictures();
+const receivedPictures = createPictures();
 
-renderPictures(pictures);
-setPicturesContainerClickHandler(showBigPicture);
+initBigPicture();
+renderGallery(receivedPictures);
