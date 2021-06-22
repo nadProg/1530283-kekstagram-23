@@ -8,9 +8,15 @@ const socialCommentCountNode = bigPictureNode.querySelector('.social__comment-co
 const commentsLoaderNode = bigPictureNode.querySelector('.comments-loader');
 
 let currentComments = [];
-let currentLastComment = 0;
+let lastShownComment = 0;
 
-const getCommentsCountHTML = (currentLast, total) => `${currentLast} из <span class="comments-count">${total}</span> комментариев`;
+hideNode(commentsLoaderNode);
+
+const getCommentCountHTML = (lastShownItem, itemsAmount) => `
+  ${lastShownItem} из <span class="comments-count">${itemsAmount}</span> комментариев
+`;
+
+const zeroComentCountHTML = getCommentCountHTML(0, 0);
 
 const getCommentItemHTML = ({avatar, name, message}) => `
   <li class="social__comment">
@@ -23,40 +29,45 @@ const getCommentItemHTML = ({avatar, name, message}) => `
   </li>
 `;
 
-const onCommentsLoaderClick = () => {
-  currentComments.slice(currentLastComment, currentLastComment + COMMENTS_STEP)
+const onCommentsLoaderNodeClick = () => {
+  currentComments.slice(lastShownComment, lastShownComment + COMMENTS_STEP)
     .forEach((comment) => {
       socialCommentsNode.insertAdjacentHTML('beforeend', getCommentItemHTML(comment));
     });
 
-  currentLastComment += COMMENTS_STEP;
-  if (currentLastComment >= currentComments.length) {
-    currentLastComment = currentComments.length;
+  lastShownComment += COMMENTS_STEP;
+  if (lastShownComment >= currentComments.length) {
+    lastShownComment = currentComments.length;
     destroyCommentsLoader();
   }
 
-  socialCommentCountNode.innerHTML = getCommentsCountHTML(currentLastComment, currentComments.length);
+  socialCommentCountNode.innerHTML = getCommentCountHTML(lastShownComment, currentComments.length);
 };
 
-export const updateComments = (comments) => {
+function initCommentsLoader() {
+  showNode(commentsLoaderNode);
+  commentsLoaderNode.addEventListener('click', onCommentsLoaderNodeClick);
+}
+
+function destroyCommentsLoader() {
+  hideNode(commentsLoaderNode);
+  commentsLoaderNode.removeEventListener('click', onCommentsLoaderNodeClick);
+}
+
+export function initComments(comments) {
+  lastShownComment = 0;
   currentComments = comments;
-  currentLastComment = 0;
   socialCommentsNode.innerHTML = '';
 
-  if (comments.length > 0) {
+  if (comments.length) {
     initCommentsLoader();
     commentsLoaderNode.click();
   } else {
-    socialCommentCountNode.innerHTML = getCommentsCountHTML(0, 0);
+    socialCommentCountNode.innerHTML = zeroComentCountHTML;
   }
-};
-
-export function initCommentsLoader() {
-  showNode(commentsLoaderNode);
-  commentsLoaderNode.addEventListener('click', onCommentsLoaderClick);
 }
 
-export function destroyCommentsLoader() {
-  hideNode(commentsLoaderNode);
-  commentsLoaderNode.removeEventListener('click', onCommentsLoaderClick);
+export function destroyComments() {
+  currentComments = [];
+  destroyCommentsLoader();
 }

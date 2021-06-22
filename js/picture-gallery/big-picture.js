@@ -1,7 +1,7 @@
 import {
   isEscape, hideNode, showNode, switchOnModalMode, switchOffModalMode
 } from '../utils.js';
-import {updateComments, destroyCommentsLoader} from './comments.js';
+import {initComments, destroyComments} from './comments.js';
 
 const picturesContainerNode = document.querySelector('.pictures');
 const bigPictureNode = document.querySelector('.big-picture');
@@ -16,7 +16,7 @@ const updateBigPicture = ({url, likes, comments, description}) => {
   imageNode.src = url;
   likesCountNode.textContent = likes;
   socialCaptionNode.textContent = description;
-  updateComments(comments);
+  initComments(comments);
 };
 
 const onCancelBtnNodeClick = () => {
@@ -48,7 +48,7 @@ function hideBigPicture() {
   hideNode(bigPictureNode);
   switchOffModalMode();
 
-  destroyCommentsLoader();
+  destroyComments();
 
   picturesContainerNode.addEventListener('click', onPicturesContainerNodeClick);
   cancelBtnNode.removeEventListener('click', onCancelBtnNodeClick);
