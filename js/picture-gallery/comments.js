@@ -1,4 +1,4 @@
-import {showNode, hideNode} from '../utils.js';
+import {showNode, hideNode, renderNodes} from '../utils.js';
 
 const COMMENTS_STEP = 5;
 
@@ -18,22 +18,28 @@ const getCommentCountHTML = (lastShownItem, itemsAmount) => `
 
 const zeroComentCountHTML = getCommentCountHTML(0, 0);
 
-const getCommentItemHTML = ({avatar, name, message}) => `
-  <li class="social__comment">
+const createCommentItemNode = ({avatar, name, message}) => {
+  const commentItemNode = document.createElement('li');
+  commentItemNode.classList.add('social__comment');
+  commentItemNode.innerHTML =  `
     <img
         class="social__picture"
         src="${avatar}"
         alt="${name}"
         width="35" height="35">
-    <p class="social__text">${message}</p>
-  </li>
-`;
+    <p class="social__text"></p>
+  `;
+  commentItemNode.querySelector('.social__text').textContent = message;
+
+  return commentItemNode;
+};
 
 const onCommentsLoaderNodeClick = () => {
-  currentComments.slice(lastShownComment, lastShownComment + COMMENTS_STEP)
-    .forEach((comment) => {
-      socialCommentsNode.insertAdjacentHTML('beforeend', getCommentItemHTML(comment));
-    });
+  const commentItemNodes = currentComments
+    .slice(lastShownComment, lastShownComment + COMMENTS_STEP)
+    .map(createCommentItemNode);
+
+  renderNodes(commentItemNodes,socialCommentsNode);
 
   lastShownComment += COMMENTS_STEP;
   if (lastShownComment >= currentComments.length) {
