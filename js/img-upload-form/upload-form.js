@@ -5,8 +5,8 @@ import {initTextField, destroyTextField} from './text-fieldset.js';
 
 const uploadFormNode = document.querySelector('.img-upload__form');
 const overlayNode = uploadFormNode.querySelector('.img-upload__overlay');
-const uploadInputNode = uploadFormNode.querySelector('.img-upload__input');
-const cancelBtnNode = uploadFormNode.querySelector('.img-upload__cancel');
+const uploadInputNode = uploadFormNode.querySelector('#upload-file');
+const cancelBtnNode = uploadFormNode.querySelector('#upload-cancel');
 
 const onUploadInputNodeChange = () => {
   showForm();
