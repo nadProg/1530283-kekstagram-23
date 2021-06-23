@@ -2,6 +2,7 @@ import {
   isEscape, hideNode, showNode, switchOnModalMode, switchOffModalMode
 } from '../utils.js';
 import {initScale, destroyScale} from './scale.js';
+import {initEffects, destroyEffects} from './effects.js';
 import {initTextField, destroyTextField} from './text-fieldset.js';
 
 const uploadFormNode = document.querySelector('.img-upload__form');
@@ -29,6 +30,7 @@ function showForm() {
   switchOnModalMode();
 
   initScale();
+  initEffects();
   initTextField();
 
   uploadInputNode.removeEventListener('change', onUploadInputNodeChange);
@@ -43,6 +45,7 @@ function hideForm() {
   uploadFormNode.reset();
 
   destroyScale();
+  destroyEffects();
   destroyTextField();
 
   uploadInputNode.addEventListener('change', onUploadInputNodeChange);
