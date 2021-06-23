@@ -1,12 +1,10 @@
-import {hideNode, showNode} from '../utils.js';
-import {initEffectLevel, updateEffectLevel, destroyEffectLevel} from './effect-level.js';
+import {initEffectLevel, destroyEffectLevel} from './effect-level.js';
 
 const INITIAL_EFFECT = 'none';
 
 const uploadFormNode = document.querySelector('.img-upload__form');
 const imageNode = uploadFormNode.querySelector('.img-upload__preview img');
 const effectsContainerNode = uploadFormNode.querySelector('.effects__list');
-const effectLevelContainerNode = uploadFormNode.querySelector('.effect-level');
 
 let currentEffect = INITIAL_EFFECT;
 
@@ -19,25 +17,21 @@ const onEffectsContainerNodeChange = (evt) => {
     imageNode.classList.add(`effects__preview--${currentEffect}`);
 
     if (currentEffect === INITIAL_EFFECT) {
-      hideNode(effectLevelContainerNode);
+      destroyEffectLevel();
     } else {
-      showNode(effectLevelContainerNode);
+      initEffectLevel(currentEffect);
     }
   }
 };
 
-
 export const initEffects = () => {
   currentEffect = INITIAL_EFFECT;
-  hideNode(effectLevelContainerNode);
-
+  imageNode.classList.add(`effects__preview--${currentEffect}`);
   effectsContainerNode.addEventListener('change', onEffectsContainerNodeChange);
-
-  // initEffectLevel();
 };
 
 export const destroyEffects = () => {
+  destroyEffectLevel();
+  imageNode.classList.remove(`effects__preview--${currentEffect}`);
   effectsContainerNode.removeEventListener('change', onEffectsContainerNodeChange);
-
-  // destroyEffectLevel();
 };

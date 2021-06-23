@@ -1,6 +1,4 @@
-const effectLevelContainerNode = document.querySelector('.effect-level');
-const effectLevelInputNode = effectLevelContainerNode.querySelector('.effect-level__value');
-const effectLevelSliderNode = effectLevelContainerNode.querySelector('.effect-level__slider');
+import {hideNode, showNode} from '../utils.js';
 
 const effectNameToFilter = {
   chrome: {
@@ -8,14 +6,12 @@ const effectNameToFilter = {
     min: 0,
     max: 1,
     step: 0.1,
-    unit: '',
   },
   sepia: {
     name: 'sepia',
     min: 0,
     max: 1,
     step: 0.1,
-    unit: '',
   },
   marvin: {
     name: 'invert',
@@ -23,6 +19,7 @@ const effectNameToFilter = {
     max: 100,
     step: 1,
     unit: '%',
+    round: 0,
   },
   phobos: {
     name: 'blur',
@@ -36,46 +33,52 @@ const effectNameToFilter = {
     min: 1,
     max: 3,
     step: 0.1,
-    unit: '',
   },
 };
 
-const getFilter = (effectName) => {
-  const filter = effectNameToFilter[effectName];
-  if (!filter) {
-    return INITIAL_EFFECT;
-  }
+const uploadFormNode = document.querySelector('.img-upload__form');
+const imageNode = uploadFormNode.querySelector('.img-upload__preview img');
+const effectLevelContainerNode = uploadFormNode.querySelector('.effect-level');
+const effectLevelInputNode = effectLevelContainerNode.querySelector('.effect-level__value');
+const effectLevelSliderNode = effectLevelContainerNode.querySelector('.effect-level__slider');
 
-  const {name, max, unit} = filter;
-  return `${name}(${max}${unit})`;
-};
+hideNode(effectLevelContainerNode);
 
-export const initEffectLevel = ({min, max, step}) => {
-  noUiSlider.create(effectLevelSliderNode, {
+export const initEffectLevel = (effectName) => {
+  const {min, max, step, name: filterName, unit = '', round = 1} = effectNameToFilter[effectName];
+
+  const options = {
     range: {
       min,
       max,
     },
     step,
     start: max,
-  });
-};
+  };
 
-export const updateEffectLevel = ({min, max, step}) => {
   if (effectLevelSliderNode.noUiSlider) {
-    effectLevelSliderNode.noUiSlider.updateOptions({
-      range: {
-        min,
-        max,
-      },
-      step,
-      start: max,
-    });
+    effectLevelSliderNode.noUiSlider.off('update');
+    effectLevelSliderNode.noUiSlider.updateOptions(options);
+  } else {
+    showNode(effectLevelContainerNode);
+    noUiSlider.create(effectLevelSliderNode, options);
   }
+
+  effectLevelSliderNode.noUiSlider.on('update', (_, handle, unencoded) => {
+    const value = unencoded[handle].toFixed(round);
+    effectLevelInputNode.value = value;
+    const filterCSS = `${filterName}(${value}${unit})`;
+    console.log(filterCSS);
+    imageNode.style.filter = filterCSS;
+  });
 };
 
 export const destroyEffectLevel = () => {
   if (effectLevelSliderNode.noUiSlider) {
     effectLevelSliderNode.noUiSlider.destroy();
   }
+
+  hideNode(effectLevelContainerNode);
+  imageNode.style.filter = '';
+  effectLevelInputNode.value = '';
 };
