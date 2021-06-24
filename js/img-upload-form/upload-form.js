@@ -1,3 +1,4 @@
+import {uploadFormNode} from '../common-nodes.js';
 import {
   isEscape, hideNode, showNode, switchOnModalMode, switchOffModalMode
 } from '../utils.js';
@@ -5,7 +6,6 @@ import {initScale, destroyScale} from './scale.js';
 import {initEffects, destroyEffects} from './effects.js';
 import {initTextField, destroyTextField} from './text-fieldset.js';
 
-const uploadFormNode = document.querySelector('.img-upload__form');
 const overlayNode = uploadFormNode.querySelector('.img-upload__overlay');
 const uploadInputNode = uploadFormNode.querySelector('#upload-file');
 const cancelBtnNode = uploadFormNode.querySelector('#upload-cancel');

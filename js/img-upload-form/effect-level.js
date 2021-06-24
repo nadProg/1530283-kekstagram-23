@@ -1,4 +1,5 @@
 import {hideNode, showNode} from '../utils.js';
+import {uploadFormNode, imageNode} from '../common-nodes.js';
 
 const effectNameToFilter = {
   chrome: {
@@ -36,8 +37,6 @@ const effectNameToFilter = {
   },
 };
 
-const uploadFormNode = document.querySelector('.img-upload__form');
-const imageNode = uploadFormNode.querySelector('.img-upload__preview img');
 const effectLevelContainerNode = uploadFormNode.querySelector('.effect-level');
 const effectLevelInputNode = effectLevelContainerNode.querySelector('.effect-level__value');
 const effectLevelSliderNode = effectLevelContainerNode.querySelector('.effect-level__slider');
@@ -67,9 +66,7 @@ export const initEffectLevel = (effectName) => {
   effectLevelSliderNode.noUiSlider.on('update', (_, handle, unencoded) => {
     const value = unencoded[handle].toFixed(round);
     effectLevelInputNode.value = value;
-    const filterCSS = `${filterName}(${value}${unit})`;
-    console.log(filterCSS);
-    imageNode.style.filter = filterCSS;
+    imageNode.style.filter = `${filterName}(${value}${unit})`;
   });
 };
 

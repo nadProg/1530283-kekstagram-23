@@ -1,9 +1,9 @@
+import {uploadFormNode, imageNode} from '../common-nodes.js';
+
 const SCALE_STEP = 25;
 const MIN_SCALE_VALUE = 25;
 const MAX_SCALE_VALUE = 100;
 
-const uploadFormNode = document.querySelector('.img-upload__form');
-const imageNode = uploadFormNode.querySelector('.img-upload__preview img');
 const scaleContainerNode = uploadFormNode.querySelector('.scale');
 const scaleValueNode = scaleContainerNode.querySelector('.scale__control--value');
 const scaleBiggerBtnNode = scaleContainerNode.querySelector('.scale__control--bigger');

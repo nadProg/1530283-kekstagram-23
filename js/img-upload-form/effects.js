@@ -1,12 +1,11 @@
+import {uploadFormNode, imageNode} from '../common-nodes.js';
 import {initEffectLevel, destroyEffectLevel} from './effect-level.js';
 
 const INITIAL_EFFECT = 'none';
 
-const uploadFormNode = document.querySelector('.img-upload__form');
-const imageNode = uploadFormNode.querySelector('.img-upload__preview img');
 const effectsContainerNode = uploadFormNode.querySelector('.effects__list');
 
-let currentEffect = INITIAL_EFFECT;
+let currentEffect;
 
 const onEffectsContainerNodeChange = (evt) => {
   const effectRadioNode = evt.target;
