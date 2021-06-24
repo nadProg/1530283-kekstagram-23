@@ -1,5 +1,5 @@
-import {uploadFormNode, imageNode} from '../common-nodes.js';
-import {initEffectLevel, destroyEffectLevel} from './effect-level.js';
+import { uploadFormNode, imageNode } from '../common-nodes.js';
+import { initEffectLevel, destroyEffectLevel } from './effect-level.js';
 
 const INITIAL_EFFECT = 'none';
 

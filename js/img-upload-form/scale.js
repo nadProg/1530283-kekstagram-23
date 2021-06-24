@@ -1,4 +1,4 @@
-import {uploadFormNode, imageNode} from '../common-nodes.js';
+import { uploadFormNode, imageNode } from '../common-nodes.js';
 
 const SCALE_STEP = 25;
 const MIN_SCALE_VALUE = 25;

@@ -1,5 +1,5 @@
-import {hideNode, showNode} from '../utils.js';
-import {uploadFormNode, imageNode} from '../common-nodes.js';
+import { hideNode, showNode } from '../utils.js';
+import { uploadFormNode, imageNode } from '../common-nodes.js';
 
 const effectNameToFilter = {
   chrome: {
@@ -20,7 +20,6 @@ const effectNameToFilter = {
     max: 100,
     step: 1,
     unit: '%',
-    round: 0,
   },
   phobos: {
     name: 'blur',
@@ -44,7 +43,13 @@ const effectLevelSliderNode = effectLevelContainerNode.querySelector('.effect-le
 hideNode(effectLevelContainerNode);
 
 export const initEffectLevel = (effectName) => {
-  const {min, max, step, name: filterName, unit = '', round = 1} = effectNameToFilter[effectName];
+  const {
+    min,
+    max,
+    step,
+    name: filterName,
+    unit = '',
+  } = effectNameToFilter[effectName];
 
   const options = {
     range: {
@@ -56,15 +61,21 @@ export const initEffectLevel = (effectName) => {
   };
 
   if (effectLevelSliderNode.noUiSlider) {
-    effectLevelSliderNode.noUiSlider.off('update');
+    effectLevelSliderNode.noUiSlider.off();
     effectLevelSliderNode.noUiSlider.updateOptions(options);
   } else {
     showNode(effectLevelContainerNode);
-    noUiSlider.create(effectLevelSliderNode, options);
+    noUiSlider.create(effectLevelSliderNode, {
+      ...options,
+      format: {
+        to: (value) => Number.isInteger(value) ? value.toFixed(0) : value.toFixed(1),
+        from: (value) => parseFloat(value),
+      },
+    });
   }
 
   effectLevelSliderNode.noUiSlider.on('update', (_, handle, unencoded) => {
-    const value = unencoded[handle].toFixed(round);
+    const value = unencoded[handle];
     effectLevelInputNode.value = value;
     imageNode.style.filter = `${filterName}(${value}${unit})`;
   });
@@ -72,6 +83,7 @@ export const initEffectLevel = (effectName) => {
 
 export const destroyEffectLevel = () => {
   if (effectLevelSliderNode.noUiSlider) {
+    effectLevelSliderNode.noUiSlider.off();
     effectLevelSliderNode.noUiSlider.destroy();
   }
 
