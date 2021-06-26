@@ -1,4 +1,4 @@
-import {checkMaxLength, isUnique, isAlphaNumeric} from '../utils.js';
+import { checkMaxLength, isUnique, isAlphaNumeric } from '../utils.js';
 
 const HASHTAG_MAX_AMOUNT = 5;
 const HASHTAG_MAX_LENGTH = 20;

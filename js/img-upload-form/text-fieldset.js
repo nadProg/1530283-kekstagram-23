@@ -1,7 +1,8 @@
-import {isEscape, isEnter, deleteTrailingSpaces} from '../utils.js';
-import {validateHashtags, validateDescription} from './validation.js';
+import { uploadFormNode } from '../common-nodes.js';
+import { isEscape, isEnter, deleteTrailingSpaces } from '../utils.js';
+import { validateHashtags, validateDescription } from './validation.js';
 
-const textFieldsetNode = document.querySelector('.text');
+const textFieldsetNode = uploadFormNode.querySelector('.text');
 const hashtagsInputNode = textFieldsetNode.querySelector('.text__hashtags');
 const descriptionInputNode = textFieldsetNode.querySelector('.text__description');
 
@@ -31,15 +32,15 @@ const validateTextInputNode = (inputNode) => {
   inputNode.reportValidity();
 };
 
-const onTextInputNodeInput = ({target}) => {
+const onTextInputNodeInput = ({ target }) => {
   validateTextInputNode(target);
 };
 
-const onTextInputNodeFocus = ({target}) => {
+const onTextInputNodeFocus = ({ target }) => {
   validateTextInputNode(target);
 };
 
-const onTextInputNodeChange = ({target}) => {
+const onTextInputNodeChange = ({ target }) => {
   target.value = deleteTrailingSpaces(target.value);
   validateTextInputNode(target);
 };
