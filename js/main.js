@@ -1,16 +1,20 @@
-import {initUploadForm} from './img-upload-form/upload-form.js';
-import {createPictures} from './data/create-pictures.js';
-import {renderPictures} from './picture-gallery/pictures.js';
-import {initBigPicture, setRenderedPictures} from './picture-gallery/big-picture.js';
+import { getData } from './api.js';
+import { initUploadForm}  from './img-upload-form/upload-form.js';
+import { renderPictures } from './picture-gallery/pictures.js';
+import { initBigPicture, setRenderedPictures } from './picture-gallery/big-picture.js';
 
 const renderGallery = (pictures) => {
   renderPictures(pictures);
   setRenderedPictures(pictures);
 };
 
-const receivedPictures = createPictures();
+const onGetDataSuccess = (receivedPictures) => {
+  initBigPicture();
+  renderGallery(receivedPictures);
+};
 
-initBigPicture();
-renderGallery(receivedPictures);
+const onGetDataError = (error) => alert(error);
+
+getData(onGetDataSuccess, onGetDataError);
 
 initUploadForm();
