@@ -98,6 +98,8 @@ export const isEscape = ({code}) => code === 'Escape';
 
 export const isEnter = ({code}) => code === 'Enter';
 
+export const isFunction = (func) => typeof func === 'function';
+
 export const isUnique = (array) => array.length === [...new Set(array)].length;
 
 export const deleteTrailingSpaces = (string) => string.trim().replace(TRAILING_SPACE, ' ');

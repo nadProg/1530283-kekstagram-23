@@ -2,6 +2,7 @@ import {
   isEscape, hideNode, showNode, switchOnModalMode, switchOffModalMode, commonNodes
 } from '../utils.js';
 import { postData } from '../api.js';
+import { showModalMessage } from '../modal-message.js';
 import { initScale, destroyScale } from './scale.js';
 import { initEffects, destroyEffects } from './effects.js';
 import { initTextField, destroyTextField } from './text-fieldset.js';
@@ -10,7 +11,8 @@ const { uploadFormNode } = commonNodes;
 
 const overlayNode = uploadFormNode.querySelector('.img-upload__overlay');
 const uploadInputNode = uploadFormNode.querySelector('#upload-file');
-const cancelBtnNode = uploadFormNode.querySelector('#upload-cancel');
+const cancelButtonNode = uploadFormNode.querySelector('#upload-cancel');
+const submitButtonNode = uploadFormNode.querySelector('#upload-submit');
 
 const onUploadInputNodeChange = () => {
   showForm();
@@ -27,10 +29,24 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
+const onPostDataSuccess = () => {
+  hideForm();
+  showModalMessage('success');
+};
+
+const onPostDataError = () => {
+  document.removeEventListener('keydown', onDocumentKeydown);
+  showModalMessage('error', () => document.addEventListener('keydown', onDocumentKeydown));
+};
+
+const onPostDataFinally = () => submitButtonNode.disabled = false;
+
 const onUploadFormNodeSubmit = (evt) => {
   evt.preventDefault();
 
-  postData(console.log, console.log, new FormData(evt.currentTarget));
+  submitButtonNode.disabled = true;
+  const body = new FormData(evt.currentTarget);
+  postData(onPostDataSuccess, onPostDataError, onPostDataFinally, body);
 };
 
 function showForm() {
@@ -43,7 +59,7 @@ function showForm() {
 
   uploadInputNode.removeEventListener('change', onUploadInputNodeChange);
   uploadFormNode.addEventListener('submit', onUploadFormNodeSubmit);
-  cancelBtnNode.addEventListener('click', onCancelBtnNodeClick);
+  cancelButtonNode.addEventListener('click', onCancelBtnNodeClick);
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
@@ -59,7 +75,7 @@ function hideForm() {
 
   uploadInputNode.addEventListener('change', onUploadInputNodeChange);
   uploadFormNode.removeEventListener('submit', onUploadFormNodeSubmit);
-  cancelBtnNode.removeEventListener('click', onCancelBtnNodeClick);
+  cancelButtonNode.removeEventListener('click', onCancelBtnNodeClick);
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
