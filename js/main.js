@@ -1,4 +1,5 @@
 import { getData } from './api.js';
+import { showAlert } from './alert.js';
 import { initUploadForm}  from './img-upload-form/upload-form.js';
 import { renderPictures } from './picture-gallery/pictures.js';
 import { initBigPicture, setRenderedPictures } from './picture-gallery/big-picture.js';
@@ -13,7 +14,7 @@ const onGetDataSuccess = (receivedPictures) => {
   renderGallery(receivedPictures);
 };
 
-const onGetDataError = (error) => alert(error);
+const onGetDataError = () => showAlert('Не удалось загрузить изображения');
 
 getData(onGetDataSuccess, onGetDataError);
 
