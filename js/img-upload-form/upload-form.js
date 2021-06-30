@@ -18,7 +18,7 @@ const onUploadInputNodeChange = () => {
   showForm();
 };
 
-const onCancelBtnNodeClick = () => {
+const onCancelButtonNodeClick = () => {
   hideForm();
 };
 
@@ -59,7 +59,7 @@ function showForm() {
 
   uploadInputNode.removeEventListener('change', onUploadInputNodeChange);
   uploadFormNode.addEventListener('submit', onUploadFormNodeSubmit);
-  cancelButtonNode.addEventListener('click', onCancelBtnNodeClick);
+  cancelButtonNode.addEventListener('click', onCancelButtonNodeClick);
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
@@ -75,7 +75,7 @@ function hideForm() {
 
   uploadInputNode.addEventListener('change', onUploadInputNodeChange);
   uploadFormNode.removeEventListener('submit', onUploadFormNodeSubmit);
-  cancelButtonNode.removeEventListener('click', onCancelBtnNodeClick);
+  cancelButtonNode.removeEventListener('click', onCancelButtonNodeClick);
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 

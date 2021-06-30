@@ -7,7 +7,7 @@ const { picturesContainerNode } = commonNodes;
 
 const bigPictureNode = document.querySelector('.big-picture');
 const imageNode = bigPictureNode.querySelector('.big-picture__img img');
-const cancelBtnNode = bigPictureNode.querySelector('.big-picture__cancel');
+const cancelButtonNode = bigPictureNode.querySelector('.big-picture__cancel');
 const likesCountNode = bigPictureNode.querySelector('.likes-count');
 const socialCaptionNode = bigPictureNode.querySelector('.social__caption');
 
@@ -20,7 +20,7 @@ const updateBigPicture = ({url, likes, comments, description}) => {
   initComments(comments);
 };
 
-const onCancelBtnNodeClick = () => {
+const onCancelButtonNodeClick = () => {
   hideBigPicture();
 };
 
@@ -53,7 +53,7 @@ function hideBigPicture() {
   destroyComments();
 
   picturesContainerNode.addEventListener('click', onPicturesContainerNodeClick);
-  cancelBtnNode.removeEventListener('click', onCancelBtnNodeClick);
+  cancelButtonNode.removeEventListener('click', onCancelButtonNodeClick);
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
@@ -64,7 +64,7 @@ export function showBigPicture(picture) {
   updateBigPicture(picture);
 
   picturesContainerNode.removeEventListener('click', onPicturesContainerNodeClick);
-  cancelBtnNode.addEventListener('click', onCancelBtnNodeClick);
+  cancelButtonNode.addEventListener('click', onCancelButtonNodeClick);
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
