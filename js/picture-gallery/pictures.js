@@ -1,10 +1,10 @@
-import {renderNodes} from '../utils.js';
+import { renderNodes, commonNodes} from '../utils.js';
+
+const { picturesContainerNode } = commonNodes;
 
 const pictureTemplateNode = document.querySelector('#picture')
   .content
   .querySelector('.picture');
-
-const picturesContainerNode = document.querySelector('.pictures');
 
 const createPictureNode = ({id, url, likes, comments}) => {
   const pictureNode = pictureTemplateNode.cloneNode(true);

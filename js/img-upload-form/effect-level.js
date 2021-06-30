@@ -1,5 +1,4 @@
-import { hideNode, showNode } from '../utils.js';
-import { uploadFormNode, imageNode } from '../common-nodes.js';
+import { hideNode, showNode, commonNodes } from '../utils.js';
 
 const effectNameToFilter = {
   chrome: {
@@ -35,6 +34,8 @@ const effectNameToFilter = {
     step: 0.1,
   },
 };
+
+const { uploadFormNode, imageNode } = commonNodes;
 
 const effectLevelContainerNode = uploadFormNode.querySelector('.effect-level');
 const effectLevelInputNode = effectLevelContainerNode.querySelector('.effect-level__value');

@@ -1,6 +1,7 @@
-import { uploadFormNode } from '../common-nodes.js';
-import { isEscape, isEnter, deleteTrailingSpaces } from '../utils.js';
+import { isEscape, isEnter, deleteTrailingSpaces, commonNodes } from '../utils.js';
 import { validateHashtags, validateDescription } from './validation.js';
+
+const { uploadFormNode } = commonNodes;
 
 const textFieldsetNode = uploadFormNode.querySelector('.text');
 const hashtagsInputNode = textFieldsetNode.querySelector('.text__hashtags');

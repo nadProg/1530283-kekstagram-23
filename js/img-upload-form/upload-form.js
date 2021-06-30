@@ -1,10 +1,11 @@
-import { uploadFormNode } from '../common-nodes.js';
 import {
-  isEscape, hideNode, showNode, switchOnModalMode, switchOffModalMode
+  isEscape, hideNode, showNode, switchOnModalMode, switchOffModalMode, commonNodes
 } from '../utils.js';
 import { initScale, destroyScale } from './scale.js';
 import { initEffects, destroyEffects } from './effects.js';
 import { initTextField, destroyTextField } from './text-fieldset.js';
+
+const { uploadFormNode } = commonNodes;
 
 const overlayNode = uploadFormNode.querySelector('.img-upload__overlay');
 const uploadInputNode = uploadFormNode.querySelector('#upload-file');

@@ -1,7 +1,9 @@
-import { uploadFormNode, imageNode } from '../common-nodes.js';
+import { commonNodes } from '../utils.js';
 import { initEffectLevel, destroyEffectLevel } from './effect-level.js';
 
 const INITIAL_EFFECT = 'none';
+
+const { uploadFormNode, imageNode } = commonNodes;
 
 const effectsContainerNode = uploadFormNode.querySelector('.effects__list');
 

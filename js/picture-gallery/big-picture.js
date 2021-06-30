@@ -1,9 +1,10 @@
 import {
-  isEscape, hideNode, showNode, switchOnModalMode, switchOffModalMode
+  isEscape, hideNode, showNode, switchOnModalMode, switchOffModalMode, commonNodes
 } from '../utils.js';
 import {initComments, destroyComments} from './comments.js';
 
-const picturesContainerNode = document.querySelector('.pictures');
+const { picturesContainerNode } = commonNodes;
+
 const bigPictureNode = document.querySelector('.big-picture');
 const imageNode = bigPictureNode.querySelector('.big-picture__img img');
 const cancelBtnNode = bigPictureNode.querySelector('.big-picture__cancel');
@@ -25,6 +26,7 @@ const onCancelBtnNodeClick = () => {
 
 const onDocumentKeydown = (evt) => {
   if (isEscape(evt)) {
+    evt.preventDefault();
     hideBigPicture();
   }
 };
