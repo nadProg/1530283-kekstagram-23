@@ -3,8 +3,9 @@ const Url = {
   GET: 'https://23.javascript.pages.academy/kekstagram/data',
 };
 
-export const getData = (onSuccess, onError) => {
-  fetch(Url.GET)
+const fetchData = (method, onSuccess, onError, body) => {
+  method = method.toUpperCase();
+  fetch(Url[method], { method, body })
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -15,3 +16,7 @@ export const getData = (onSuccess, onError) => {
     .then((result) => onSuccess(result))
     .catch((error) => onError(error));
 };
+
+export const getData = (onSuccess, onError) => fetchData('GET', onSuccess, onError);
+
+export const postData = (onSuccess, onError, body) => fetchData('POST', onSuccess, onError, body);
