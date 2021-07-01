@@ -1,4 +1,4 @@
-import {showNode, hideNode, renderNodes} from '../utils.js';
+import { showNode, hideNode, renderNodes } from '../utils.js';
 
 const COMMENTS_STEP = 5;
 

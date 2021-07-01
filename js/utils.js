@@ -98,8 +98,22 @@ export const isEscape = ({code}) => code === 'Escape';
 
 export const isEnter = ({code}) => code === 'Enter';
 
+export const isFunction = (func) => typeof func === 'function';
+
 export const isUnique = (array) => array.length === [...new Set(array)].length;
 
 export const deleteTrailingSpaces = (string) => string.trim().replace(TRAILING_SPACE, ' ');
 
 export const isAlphaNumeric = (string) => ALPHANUMERIC.test(string.toLowerCase());
+
+const picturesContainerNode = bodyNode.querySelector('.pictures');
+
+const uploadFormNode = picturesContainerNode.querySelector('.img-upload__form');
+
+const imageNode = uploadFormNode.querySelector('.img-upload__preview img');
+
+export const commonNodes = {
+  imageNode,
+  uploadFormNode,
+  picturesContainerNode,
+};
