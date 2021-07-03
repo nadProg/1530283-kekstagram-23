@@ -5,26 +5,24 @@ const Url = {
   GET: 'https://23.javascript.pages.academy/kekstagram/data',
 };
 
-const fetchData = (method, onSuccess, onError, body) => {
+const fetchData = async (method, onSuccess, onError, body) => {
   method = method.toUpperCase();
-  return fetch(Url[method], { method, body })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
 
+  try {
+    const response = await fetch(Url[method], { method, body });
+
+    if (!response.ok) {
       throw new Error(`${response.status} — ${response.statusText}`);
-    })
-    .then((result) => {
-      if (isFunction(onSuccess)) {
-        onSuccess(result);
-      }
-    })
-    .catch((error) => {
-      if (isFunction(onError)) {
-        onError(error);
-      }
-    });
+    }
+
+    const result = await response.json();
+
+    return isFunction(onSuccess) ? onSuccess(result) : result;
+  } catch (error) {
+    if (isFunction(onError)) {
+      onError(error);
+    }
+  }
 };
 
 export const getData = (onSuccess, onError) => fetchData('GET', onSuccess, onError);

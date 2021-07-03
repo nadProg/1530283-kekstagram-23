@@ -39,13 +39,13 @@ const onPostDataError = () => {
   showModalMessage('error', () => document.addEventListener('keydown', onDocumentKeydown));
 };
 
-const onUploadFormNodeSubmit = (evt) => {
+const onUploadFormNodeSubmit = async (evt) => {
   evt.preventDefault();
 
   submitButtonNode.disabled = true;
   const body = new FormData(evt.currentTarget);
-  postData(onPostDataSuccess, onPostDataError, body)
-    .finally(() => submitButtonNode.disabled = false);
+  await postData(onPostDataSuccess, onPostDataError, body);
+  submitButtonNode.disabled = false;
 };
 
 function showForm() {
