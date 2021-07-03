@@ -117,3 +117,12 @@ export const commonNodes = {
   uploadFormNode,
   picturesContainerNode,
 };
+
+export const debounce = (cb, time = 500) => {
+  let timeoutId;
+
+  return function () {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => cb.apply(this, arguments), time);
+  };
+};
