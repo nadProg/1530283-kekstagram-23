@@ -3,6 +3,7 @@ import { showAlert } from './alert.js';
 import { initUploadForm}  from './img-upload-form/upload-form.js';
 import { renderPictures } from './picture-gallery/pictures.js';
 import { initBigPicture, setRenderedPictures } from './picture-gallery/big-picture.js';
+import { initFilter } from './picture-gallery/filter.js';
 
 const renderGallery = (pictures) => {
   renderPictures(pictures);
@@ -11,7 +12,7 @@ const renderGallery = (pictures) => {
 
 const onGetDataSuccess = (receivedPictures) => {
   initBigPicture();
-  renderGallery(receivedPictures);
+  initFilter(receivedPictures, renderGallery);
 };
 
 const onGetDataError = () => showAlert('Не удалось загрузить изображения');

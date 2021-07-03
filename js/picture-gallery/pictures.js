@@ -17,6 +17,13 @@ const createPictureNode = ({id, url, likes, comments}) => {
   return pictureNode;
 };
 
+const clearContainer = () => {
+  const renderedPictures = picturesContainerNode.querySelectorAll('.picture');
+
+  renderedPictures.forEach((picture) => picture.remove());
+};
+
 export const renderPictures = (pictures) => {
+  clearContainer();
   renderNodes(pictures.map(createPictureNode), picturesContainerNode);
 };
