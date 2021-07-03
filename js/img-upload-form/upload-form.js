@@ -39,14 +39,13 @@ const onPostDataError = () => {
   showModalMessage('error', () => document.addEventListener('keydown', onDocumentKeydown));
 };
 
-const onPostDataFinally = () => submitButtonNode.disabled = false;
-
 const onUploadFormNodeSubmit = (evt) => {
   evt.preventDefault();
 
   submitButtonNode.disabled = true;
   const body = new FormData(evt.currentTarget);
-  postData(onPostDataSuccess, onPostDataError, onPostDataFinally, body);
+  postData(onPostDataSuccess, onPostDataError, body)
+    .finally(() => submitButtonNode.disabled = false);
 };
 
 function showForm() {
