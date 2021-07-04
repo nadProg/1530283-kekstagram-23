@@ -1,7 +1,7 @@
 import {
   isEscape, hideNode, showNode, switchOnModalMode, switchOffModalMode, commonNodes
 } from '../utils.js';
-import {initComments, destroyComments} from './comments.js';
+import { initComments, destroyComments } from './comments.js';
 
 const { picturesContainerNode } = commonNodes;
 
@@ -13,7 +13,7 @@ const socialCaptionNode = bigPictureNode.querySelector('.social__caption');
 
 let renderedPictures = [];
 
-const updateBigPicture = ({url, likes, comments, description}) => {
+const updateBigPicture = ({ url, likes, comments, description }) => {
   imageNode.src = url;
   likesCountNode.textContent = likes;
   socialCaptionNode.textContent = description;
@@ -37,7 +37,7 @@ const onPicturesContainerNodeClick = (evt) => {
   if (pictureNode && evt.currentTarget.contains(pictureNode)) {
     evt.preventDefault();
 
-    const {id} = pictureNode.dataset;
+    const { id } = pictureNode.dataset;
     const picture = renderedPictures.find((item) => item.id === Number(id));
 
     if (picture) {

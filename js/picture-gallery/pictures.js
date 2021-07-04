@@ -6,7 +6,7 @@ const pictureTemplateNode = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
-const createPictureNode = ({id, url, likes, comments}) => {
+const createPictureNode = ({ id, url, likes, comments }) => {
   const pictureNode = pictureTemplateNode.cloneNode(true);
 
   pictureNode.dataset.id = id;

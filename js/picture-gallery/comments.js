@@ -18,7 +18,7 @@ const getCommentCountHTML = (lastShownItem, itemsAmount) => `
 
 const zeroComentCountHTML = getCommentCountHTML(0, 0);
 
-const createCommentItemNode = ({avatar, name, message}) => {
+const createCommentItemNode = ({ avatar, name, message }) => {
   const commentItemNode = document.createElement('li');
   commentItemNode.classList.add('social__comment');
   commentItemNode.innerHTML =  `
