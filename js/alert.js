@@ -10,7 +10,7 @@ const createAlertNode = (text) => {
   return alertNode;
 };
 
-const onAlertNodeAnimationEnd = ({currentTarget}) => {
+const onAlertNodeAnimationEnd = ({ currentTarget }) => {
   currentTarget.removeEventListener('animationend', onAlertNodeAnimationEnd);
   currentTarget.remove();
 };

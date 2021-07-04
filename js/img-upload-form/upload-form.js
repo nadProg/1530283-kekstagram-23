@@ -1,6 +1,7 @@
 import {
   isEscape, hideNode, showNode, switchOnModalMode, switchOffModalMode, commonNodes
 } from '../utils.js';
+import { loadPreview } from './load-preview.js';
 import { postData } from '../api.js';
 import { showModalMessage } from '../modal-message.js';
 import { initScale, destroyScale } from './scale.js';
@@ -14,8 +15,15 @@ const uploadInputNode = uploadFormNode.querySelector('#upload-file');
 const cancelButtonNode = uploadFormNode.querySelector('#upload-cancel');
 const submitButtonNode = uploadFormNode.querySelector('#upload-submit');
 
-const onUploadInputNodeChange = () => {
-  showForm();
+const onUploadInputNodeChange = async ({ currentTarget }) => {
+  try {
+    const file = currentTarget.files[0];
+    await loadPreview(file);
+    showForm();
+  } catch (error) {
+    currentTarget.value = '';
+    showModalMessage('error');
+  }
 };
 
 const onCancelButtonNodeClick = () => {
