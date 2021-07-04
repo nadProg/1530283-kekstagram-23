@@ -4,11 +4,11 @@ const ALLOWED_FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const { imageNode } = commonNodes;
 
-const fileToUrl = (file) => new Promise((resolve, reject) => {
+const getURLfromFile = (file) => new Promise((resolve, reject) => {
   const fileName = file.name.toLowerCase();
-  const matches = ALLOWED_FILE_TYPES.some((type) => fileName.endsWith(type));
+  const isTypeMatch = ALLOWED_FILE_TYPES.some((type) => fileName.endsWith(type));
 
-  if (!matches) {
+  if (!isTypeMatch) {
     reject(new Error('File type mismatch'));
   }
 
@@ -25,7 +25,7 @@ const fileToUrl = (file) => new Promise((resolve, reject) => {
   reader.readAsDataURL(file);
 });
 
-export const loadPreview = (file) => fileToUrl(file)
+export const loadPreview = (file) => getURLfromFile(file)
   .then((url) => new Promise((resolve, reject) => {
     imageNode.addEventListener('load', onImageNodeLoad);
     imageNode.addEventListener('error', onImageNodeError);
