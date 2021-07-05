@@ -1,7 +1,7 @@
 const HIDDEN_CLASS = 'hidden';
 const MODAL_OPEN_CLASS = 'modal-open';
-const TRAILING_SPACE = /[ ]+/g;
-const ALPHANUMERIC = /^[а-яёa-z0-9]+$/;
+const TRAILING_SPACES = /[ ]+/g;
+const ALPHANUMERICALS = /^[а-яёa-z0-9]+$/;
 
 const bodyNode = document.body;
 
@@ -13,9 +13,9 @@ const bodyNode = document.body;
  */
 export const checkMaxLength = (string, maxLength) => string.length <= maxLength;
 
-export const deleteTrailingSpaces = (string) => string.trim().replace(TRAILING_SPACE, ' ');
+export const deleteTrailingSpaces = (string) => string.trim().replace(TRAILING_SPACES, ' ');
 
-export const isAlphaNumeric = (string) => ALPHANUMERIC.test(string.toLowerCase());
+export const isAlphaNumeric = (string) => ALPHANUMERICALS.test(string.toLowerCase());
 
 export const isArrayUnique = (array) => array.length === [...new Set(array)].length;
 
@@ -60,13 +60,9 @@ export const renderNodes = (nodes, container) => {
   container.appendChild(fragment);
 };
 
-export const hideNode = (node) => {
-  node.classList.add(HIDDEN_CLASS);
-};
+export const hideNode = (node) => node.classList.add(HIDDEN_CLASS);
 
-export const showNode = (node) => {
-  node.classList.remove(HIDDEN_CLASS);
-};
+export const showNode = (node) => node.classList.remove(HIDDEN_CLASS);
 
 export const switchOnModalMode = () => bodyNode.classList.add(MODAL_OPEN_CLASS);
 
