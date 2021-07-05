@@ -16,8 +16,8 @@ const fetchData = async (method, onSuccess, onError, body) => {
     }
 
     const result = await response.json();
-
     return isFunction(onSuccess) ? onSuccess(result) : result;
+
   } catch (error) {
     if (isFunction(onError)) {
       onError(error);
