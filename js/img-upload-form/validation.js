@@ -1,4 +1,4 @@
-import { checkMaxLength, isUnique, isAlphaNumeric } from '../utils.js';
+import { checkMaxLength, isArrayUnique, isAlphaNumeric } from '../utils.js';
 
 const HASHTAG_MAX_AMOUNT = 5;
 const HASHTAG_MAX_LENGTH = 20;
@@ -33,7 +33,7 @@ export const validateHashtags = (string) => {
     return `Максимальное число хэш-тегов - ${HASHTAG_MAX_AMOUNT}`;
   }
 
-  if (!isUnique(hashtags)) {
+  if (!isArrayUnique(hashtags)) {
     return 'Один и тот же хэш-тег не может быть использован дважды';
   }
 

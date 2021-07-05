@@ -1,8 +1,9 @@
 const HIDDEN_CLASS = 'hidden';
 const MODAL_OPEN_CLASS = 'modal-open';
-const bodyNode = document.body;
 const TRAILING_SPACE = /[ ]+/g;
 const ALPHANUMERIC = /^[а-яёa-z0-9]+$/;
+
+const bodyNode = document.body;
 
 /**
  * Проверяет соответствие длины строки максимально допустимому значению.
@@ -11,6 +12,12 @@ const ALPHANUMERIC = /^[а-яёa-z0-9]+$/;
  * @returns {boolean} Возвращает true, если длина строки не превышает максимально допустимого значения. Возвращает false, в остальных случаях.
  */
 export const checkMaxLength = (string, maxLength) => string.length <= maxLength;
+
+export const deleteTrailingSpaces = (string) => string.trim().replace(TRAILING_SPACE, ' ');
+
+export const isAlphaNumeric = (string) => ALPHANUMERIC.test(string.toLowerCase());
+
+export const isArrayUnique = (array) => array.length === [...new Set(array)].length;
 
 /**
  * Перемешивает элементы массива случайным образом.
@@ -30,6 +37,23 @@ export const shuffle = (array) => {
   return array;
 };
 
+export const sortByComments = (pictureA, pictureB) => pictureB.comments.length - pictureA.comments.length;
+
+export const debounce = (cb, time = 500) => {
+  let timeoutId;
+
+  return function () {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => cb.apply(this, arguments), time);
+  };
+};
+
+export const isEscape = ({ code }) => code === 'Escape';
+
+export const isEnter = ({ code }) => code === 'Enter';
+
+export const isFunction = (func) => typeof func === 'function';
+
 export const renderNodes = (nodes, container) => {
   const fragment = document.createDocumentFragment();
   nodes.forEach((node) => fragment.appendChild(node));
@@ -48,18 +72,6 @@ export const switchOnModalMode = () => bodyNode.classList.add(MODAL_OPEN_CLASS);
 
 export const switchOffModalMode = () => bodyNode.classList.remove(MODAL_OPEN_CLASS);
 
-export const isEscape = ({ code }) => code === 'Escape';
-
-export const isEnter = ({ code }) => code === 'Enter';
-
-export const isFunction = (func) => typeof func === 'function';
-
-export const isUnique = (array) => array.length === [...new Set(array)].length;
-
-export const deleteTrailingSpaces = (string) => string.trim().replace(TRAILING_SPACE, ' ');
-
-export const isAlphaNumeric = (string) => ALPHANUMERIC.test(string.toLowerCase());
-
 const picturesContainerNode = bodyNode.querySelector('.pictures');
 
 const bigPictureContainerNode = bodyNode.querySelector('.big-picture');
@@ -74,14 +86,3 @@ export const commonNodes = {
   picturesContainerNode,
   bigPictureContainerNode,
 };
-
-export const debounce = (cb, time = 500) => {
-  let timeoutId;
-
-  return function () {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => cb.apply(this, arguments), time);
-  };
-};
-
-export const sortByComments = (pictureA, pictureB) => pictureB.comments.length - pictureA.comments.length;
