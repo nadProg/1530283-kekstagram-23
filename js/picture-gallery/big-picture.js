@@ -5,7 +5,6 @@ import { initComments, destroyComments } from './comments.js';
 
 const { picturesContainerNode, bigPictureContainerNode } = commonNodes;
 
-
 const bigImageNode = bigPictureContainerNode.querySelector('.big-picture__img img');
 const cancelButtonNode = bigPictureContainerNode.querySelector('.big-picture__cancel');
 const likesCountNode = bigPictureContainerNode.querySelector('.likes-count');
@@ -57,7 +56,7 @@ function hideBigPicture() {
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
-export function showBigPicture(picture) {
+function showBigPicture(picture) {
   showNode(bigPictureContainerNode);
   switchOnModalMode();
 
