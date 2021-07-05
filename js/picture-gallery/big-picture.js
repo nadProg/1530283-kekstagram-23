@@ -3,18 +3,17 @@ import {
 } from '../utils.js';
 import { initComments, destroyComments } from './comments.js';
 
-const { picturesContainerNode } = commonNodes;
+const { picturesContainerNode, bigPictureContainerNode } = commonNodes;
 
-const bigPictureNode = document.querySelector('.big-picture');
-const imageNode = bigPictureNode.querySelector('.big-picture__img img');
-const cancelButtonNode = bigPictureNode.querySelector('.big-picture__cancel');
-const likesCountNode = bigPictureNode.querySelector('.likes-count');
-const socialCaptionNode = bigPictureNode.querySelector('.social__caption');
+const bigImageNode = bigPictureContainerNode.querySelector('.big-picture__img img');
+const cancelButtonNode = bigPictureContainerNode.querySelector('.big-picture__cancel');
+const likesCountNode = bigPictureContainerNode.querySelector('.likes-count');
+const socialCaptionNode = bigPictureContainerNode.querySelector('.social__caption');
 
 let renderedPictures = [];
 
 const updateBigPicture = ({ url, likes, comments, description }) => {
-  imageNode.src = url;
+  bigImageNode.src = url;
   likesCountNode.textContent = likes;
   socialCaptionNode.textContent = description;
   initComments(comments);
@@ -47,7 +46,7 @@ const onPicturesContainerNodeClick = (evt) => {
 };
 
 function hideBigPicture() {
-  hideNode(bigPictureNode);
+  hideNode(bigPictureContainerNode);
   switchOffModalMode();
 
   destroyComments();
@@ -57,8 +56,8 @@ function hideBigPicture() {
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
-export function showBigPicture(picture) {
-  showNode(bigPictureNode);
+function showBigPicture(picture) {
+  showNode(bigPictureContainerNode);
   switchOnModalMode();
 
   updateBigPicture(picture);

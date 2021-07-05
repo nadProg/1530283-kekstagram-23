@@ -1,8 +1,9 @@
 const HIDDEN_CLASS = 'hidden';
 const MODAL_OPEN_CLASS = 'modal-open';
+const TRAILING_SPACES = /[ ]+/g;
+const ALPHANUMERICALS = /^[а-яёa-z0-9]+$/;
+
 const bodyNode = document.body;
-const TRAILING_SPACE = /[ ]+/g;
-const ALPHANUMERIC = /^[а-яёa-z0-9]+$/;
 
 /**
  * Проверяет соответствие длины строки максимально допустимому значению.
@@ -11,6 +12,12 @@ const ALPHANUMERIC = /^[а-яёa-z0-9]+$/;
  * @returns {boolean} Возвращает true, если длина строки не превышает максимально допустимого значения. Возвращает false, в остальных случаях.
  */
 export const checkMaxLength = (string, maxLength) => string.length <= maxLength;
+
+export const deleteTrailingSpaces = (string) => string.trim().replace(TRAILING_SPACES, ' ');
+
+export const isAlphaNumeric = (string) => ALPHANUMERICALS.test(string.toLowerCase());
+
+export const isArrayUnique = (array) => array.length === [...new Set(array)].length;
 
 /**
  * Перемешивает элементы массива случайным образом.
@@ -30,47 +37,7 @@ export const shuffle = (array) => {
   return array;
 };
 
-export const renderNodes = (nodes, container) => {
-  const fragment = document.createDocumentFragment();
-  nodes.forEach((node) => fragment.appendChild(node));
-  container.appendChild(fragment);
-};
-
-export const hideNode = (node) => {
-  node.classList.add(HIDDEN_CLASS);
-};
-
-export const showNode = (node) => {
-  node.classList.remove(HIDDEN_CLASS);
-};
-
-export const switchOnModalMode = () => bodyNode.classList.add(MODAL_OPEN_CLASS);
-
-export const switchOffModalMode = () => bodyNode.classList.remove(MODAL_OPEN_CLASS);
-
-export const isEscape = ({ code }) => code === 'Escape';
-
-export const isEnter = ({ code }) => code === 'Enter';
-
-export const isFunction = (func) => typeof func === 'function';
-
-export const isUnique = (array) => array.length === [...new Set(array)].length;
-
-export const deleteTrailingSpaces = (string) => string.trim().replace(TRAILING_SPACE, ' ');
-
-export const isAlphaNumeric = (string) => ALPHANUMERIC.test(string.toLowerCase());
-
-const picturesContainerNode = bodyNode.querySelector('.pictures');
-
-const uploadFormNode = picturesContainerNode.querySelector('.img-upload__form');
-
-const imageNode = uploadFormNode.querySelector('.img-upload__preview img');
-
-export const commonNodes = {
-  imageNode,
-  uploadFormNode,
-  picturesContainerNode,
-};
+export const sortByComments = (pictureA, pictureB) => pictureB.comments.length - pictureA.comments.length;
 
 export const debounce = (cb, time = 500) => {
   let timeoutId;
@@ -81,4 +48,37 @@ export const debounce = (cb, time = 500) => {
   };
 };
 
-export const sortByComments = (pictureA, pictureB) => pictureB.comments.length - pictureA.comments.length;
+export const isEscape = ({ code }) => code === 'Escape';
+
+export const isEnter = ({ code }) => code === 'Enter';
+
+export const isFunction = (func) => typeof func === 'function';
+
+export const renderNodes = (nodes, container) => {
+  const fragment = document.createDocumentFragment();
+  nodes.forEach((node) => fragment.appendChild(node));
+  container.appendChild(fragment);
+};
+
+export const hideNode = (node) => node.classList.add(HIDDEN_CLASS);
+
+export const showNode = (node) => node.classList.remove(HIDDEN_CLASS);
+
+export const switchOnModalMode = () => bodyNode.classList.add(MODAL_OPEN_CLASS);
+
+export const switchOffModalMode = () => bodyNode.classList.remove(MODAL_OPEN_CLASS);
+
+const picturesContainerNode = bodyNode.querySelector('.pictures');
+
+const bigPictureContainerNode = bodyNode.querySelector('.big-picture');
+
+const uploadFormNode = picturesContainerNode.querySelector('.img-upload__form');
+
+const uploadImageNode = uploadFormNode.querySelector('.img-upload__preview img');
+
+export const commonNodes = {
+  uploadFormNode,
+  uploadImageNode,
+  picturesContainerNode,
+  bigPictureContainerNode,
+};

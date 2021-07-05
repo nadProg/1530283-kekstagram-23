@@ -1,11 +1,12 @@
-import { showNode, hideNode, renderNodes } from '../utils.js';
+import { showNode, hideNode, renderNodes, commonNodes } from '../utils.js';
 
 const COMMENTS_STEP = 5;
 
-const bigPictureNode = document.querySelector('.big-picture');
-const socialCommentsNode = bigPictureNode.querySelector('.social__comments');
-const socialCommentCountNode = bigPictureNode.querySelector('.social__comment-count');
-const commentsLoaderNode = bigPictureNode.querySelector('.comments-loader');
+const { bigPictureContainerNode } = commonNodes;
+
+const socialCommentsNode = bigPictureContainerNode.querySelector('.social__comments');
+const socialCommentCountNode = bigPictureContainerNode.querySelector('.social__comment-count');
+const commentsLoaderNode = bigPictureContainerNode.querySelector('.comments-loader');
 
 let currentComments = [];
 let lastShownComment = 0;
@@ -39,7 +40,7 @@ const onCommentsLoaderNodeClick = () => {
     .slice(lastShownComment, lastShownComment + COMMENTS_STEP)
     .map(createCommentItemNode);
 
-  renderNodes(commentItemNodes,socialCommentsNode);
+  renderNodes(commentItemNodes, socialCommentsNode);
 
   lastShownComment += COMMENTS_STEP;
   if (lastShownComment >= currentComments.length) {

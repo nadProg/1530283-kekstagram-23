@@ -21,15 +21,9 @@ const onTextInputNodeKeydown = (evt) => {
 };
 
 const validateTextInputNode = (inputNode) => {
-  let validate = () => '';
-  if (inputNode.matches('.text__hashtags')) {
-    validate = validateHashtags;
-  } else if (inputNode.matches('.text__description')) {
-    validate = validateDescription;
-  }
+  const validate = inputNode.matches('.text__hashtags') ? validateHashtags : validateDescription;
 
   inputNode.setCustomValidity(validate(inputNode.value));
-
   inputNode.reportValidity();
 };
 
@@ -47,7 +41,7 @@ const onTextInputNodeChange = ({ target }) => {
 };
 
 
-export const initTextField = () => {
+export const initTextFieldset = () => {
   textInputNodes.forEach((textInputNode) => {
     textInputNode.addEventListener('input', onTextInputNodeInput);
     textInputNode.addEventListener('focus', onTextInputNodeFocus);
@@ -56,7 +50,7 @@ export const initTextField = () => {
   });
 };
 
-export const destroyTextField = () => {
+export const destroyTextFieldset = () => {
   textInputNodes.forEach((textInputNode) => {
     textInputNode.removeEventListener('input', onTextInputNodeInput);
     textInputNode.removeEventListener('focus', onTextInputNodeFocus);

@@ -35,7 +35,7 @@ const effectNameToFilter = {
   },
 };
 
-const { uploadFormNode, imageNode } = commonNodes;
+const { uploadFormNode, uploadImageNode } = commonNodes;
 
 const effectLevelContainerNode = uploadFormNode.querySelector('.effect-level');
 const effectLevelInputNode = effectLevelContainerNode.querySelector('.effect-level__value');
@@ -69,16 +69,16 @@ export const initEffectLevel = (effectName) => {
     noUiSlider.create(effectLevelSliderNode, {
       ...options,
       format: {
-        to: (value) => Number.isInteger(value) ? value.toFixed(0) : value.toFixed(1),
         from: (value) => parseFloat(value),
+        to: (value) => Number.isInteger(value) ? value.toFixed(0) : value.toFixed(1),
       },
     });
   }
 
-  effectLevelSliderNode.noUiSlider.on('update', (_, handle, unencoded) => {
-    const value = unencoded[handle];
+  effectLevelSliderNode.noUiSlider.on('update', (values, handle) => {
+    const value = values[handle];
     effectLevelInputNode.value = value;
-    imageNode.style.filter = `${filterName}(${value}${unit})`;
+    uploadImageNode.style.filter = `${filterName}(${value}${unit})`;
   });
 };
 
@@ -89,6 +89,6 @@ export const destroyEffectLevel = () => {
   }
 
   hideNode(effectLevelContainerNode);
-  imageNode.style.filter = '';
+  uploadImageNode.style.filter = '';
   effectLevelInputNode.value = '';
 };

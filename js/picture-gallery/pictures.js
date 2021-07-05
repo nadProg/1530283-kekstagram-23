@@ -19,7 +19,6 @@ const createPictureNode = ({ id, url, likes, comments }) => {
 
 const clearContainer = () => {
   const renderedPictures = picturesContainerNode.querySelectorAll('.picture');
-
   renderedPictures.forEach((picture) => picture.remove());
 };
 
