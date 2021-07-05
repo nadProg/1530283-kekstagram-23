@@ -1,9 +1,7 @@
 import { isEscape, isFunction } from './utils.js';
 
-const Template = {
-  ERROR: document.querySelector('#error').content.querySelector('.error'),
-  SUCCESS: document.querySelector('#success').content.querySelector('.success'),
-};
+const errorTemplateNode = document.querySelector('#error').content.querySelector('.error');
+const successTemplateNode = document.querySelector('#success').content.querySelector('.success');
 
 let currentMessage = null;
 let afterHideCallback = null;
@@ -28,9 +26,12 @@ const onDocumentKeydown = (evt) => {
 };
 
 const createMessage = (type) => {
-  const messageNode = Template[type.toUpperCase()].cloneNode(true);
-  const buttonNode = messageNode.querySelector(`.${type.toLowerCase()}__button`);
-  const messageInnerNode = messageNode.querySelector(`.${type.toLowerCase()}__inner`);
+  type = type.toLowerCase();
+
+  const templateNode = type === 'success' ? successTemplateNode : errorTemplateNode;
+  const messageNode = templateNode.cloneNode(true);
+  const buttonNode = messageNode.querySelector(`.${type}__button`);
+  const messageInnerNode = messageNode.querySelector(`.${type}__inner`);
 
   buttonNode.addEventListener('click', onButtonNodeClick);
   messageInnerNode.addEventListener('click', onMessageInnerNodeClick);
@@ -66,4 +67,3 @@ export function showModalMessage(type, cb) {
 
   document.body.appendChild(currentMessage);
 }
-
