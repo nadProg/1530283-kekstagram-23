@@ -2,11 +2,11 @@ import {
   isEscape, hideNode, showNode, switchOnModalMode, switchOffModalMode, commonNodes
 } from '../utils.js';
 import { loadPreview } from './load-preview.js';
-import { postData } from '../api.js';
 import { showModalMessage } from '../modal-message.js';
+import { postData } from '../api.js';
 import { initScale, destroyScale } from './scale.js';
 import { initEffects, destroyEffects } from './effects.js';
-import { initTextField, destroyTextField } from './text-fieldset.js';
+import { initTextFieldset, destroyTextFieldset } from './text-fieldset.js';
 
 const { uploadFormNode } = commonNodes;
 
@@ -62,7 +62,7 @@ function showForm() {
 
   initScale();
   initEffects();
-  initTextField();
+  initTextFieldset();
 
   uploadInputNode.removeEventListener('change', onUploadInputNodeChange);
   uploadFormNode.addEventListener('submit', onUploadFormNodeSubmit);
@@ -78,7 +78,7 @@ function hideForm() {
 
   destroyScale();
   destroyEffects();
-  destroyTextField();
+  destroyTextFieldset();
 
   uploadInputNode.addEventListener('change', onUploadInputNodeChange);
   uploadFormNode.removeEventListener('submit', onUploadFormNodeSubmit);
