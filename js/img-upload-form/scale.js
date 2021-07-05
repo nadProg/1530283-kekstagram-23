@@ -4,7 +4,7 @@ const SCALE_STEP = 25;
 const MIN_SCALE_VALUE = 25;
 const MAX_SCALE_VALUE = 100;
 
-const { uploadFormNode, imageNode } = commonNodes;
+const { uploadFormNode, uploadImageNode } = commonNodes;
 
 const scaleContainerNode = uploadFormNode.querySelector('.scale');
 const scaleValueNode = scaleContainerNode.querySelector('.scale__control--value');
@@ -15,7 +15,7 @@ let currentScaleValue;
 
 const setScale = (value) => {
   scaleValueNode.value = `${value}%`;
-  imageNode.style.transform = `scale(${(value / 100).toFixed(2)})`;
+  uploadImageNode.style.transform = `scale(${(value / 100).toFixed(2)})`;
 };
 
 const onScaleSmallerButtonNodeClick = () => {

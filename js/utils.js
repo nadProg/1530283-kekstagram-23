@@ -62,14 +62,17 @@ export const isAlphaNumeric = (string) => ALPHANUMERIC.test(string.toLowerCase()
 
 const picturesContainerNode = bodyNode.querySelector('.pictures');
 
+const bigPictureContainerNode = bodyNode.querySelector('.big-picture');
+
 const uploadFormNode = picturesContainerNode.querySelector('.img-upload__form');
 
-const imageNode = uploadFormNode.querySelector('.img-upload__preview img');
+const uploadImageNode = uploadFormNode.querySelector('.img-upload__preview img');
 
 export const commonNodes = {
-  imageNode,
   uploadFormNode,
+  uploadImageNode,
   picturesContainerNode,
+  bigPictureContainerNode,
 };
 
 export const debounce = (cb, time = 500) => {

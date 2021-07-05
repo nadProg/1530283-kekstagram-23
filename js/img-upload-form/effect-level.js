@@ -35,7 +35,7 @@ const effectNameToFilter = {
   },
 };
 
-const { uploadFormNode, imageNode } = commonNodes;
+const { uploadFormNode, uploadImageNode } = commonNodes;
 
 const effectLevelContainerNode = uploadFormNode.querySelector('.effect-level');
 const effectLevelInputNode = effectLevelContainerNode.querySelector('.effect-level__value');
@@ -78,7 +78,7 @@ export const initEffectLevel = (effectName) => {
   effectLevelSliderNode.noUiSlider.on('update', (_, handle, unencoded) => {
     const value = unencoded[handle];
     effectLevelInputNode.value = value;
-    imageNode.style.filter = `${filterName}(${value}${unit})`;
+    uploadImageNode.style.filter = `${filterName}(${value}${unit})`;
   });
 };
 
@@ -89,6 +89,6 @@ export const destroyEffectLevel = () => {
   }
 
   hideNode(effectLevelContainerNode);
-  imageNode.style.filter = '';
+  uploadImageNode.style.filter = '';
   effectLevelInputNode.value = '';
 };

@@ -3,7 +3,7 @@ import { initEffectLevel, destroyEffectLevel } from './effect-level.js';
 
 const INITIAL_EFFECT = 'none';
 
-const { uploadFormNode, imageNode } = commonNodes;
+const { uploadFormNode, uploadImageNode } = commonNodes;
 
 const effectsContainerNode = uploadFormNode.querySelector('.effects__list');
 
@@ -13,9 +13,9 @@ const onEffectsContainerNodeChange = (evt) => {
   const effectRadioNode = evt.target;
 
   if (effectRadioNode.matches('.effects__radio')) {
-    imageNode.classList.remove(`effects__preview--${currentEffect}`);
+    uploadImageNode.classList.remove(`effects__preview--${currentEffect}`);
     currentEffect = effectRadioNode.value;
-    imageNode.classList.add(`effects__preview--${currentEffect}`);
+    uploadImageNode.classList.add(`effects__preview--${currentEffect}`);
 
     if (currentEffect === INITIAL_EFFECT) {
       destroyEffectLevel();
@@ -27,12 +27,12 @@ const onEffectsContainerNodeChange = (evt) => {
 
 export const initEffects = () => {
   currentEffect = INITIAL_EFFECT;
-  imageNode.classList.add(`effects__preview--${currentEffect}`);
+  uploadImageNode.classList.add(`effects__preview--${currentEffect}`);
   effectsContainerNode.addEventListener('change', onEffectsContainerNodeChange);
 };
 
 export const destroyEffects = () => {
   destroyEffectLevel();
-  imageNode.classList.remove(`effects__preview--${currentEffect}`);
+  uploadImageNode.classList.remove(`effects__preview--${currentEffect}`);
   effectsContainerNode.removeEventListener('change', onEffectsContainerNodeChange);
 };
