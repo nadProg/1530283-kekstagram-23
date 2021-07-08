@@ -17,24 +17,24 @@ export const deleteTrailingSpaces = (string) => string.trim().replace(TRAILING_S
 
 export const isAlphaNumeric = (string) => ALPHANUMERICALS.test(string.toLowerCase());
 
-export const isArrayUnique = (array) => array.length === [...new Set(array)].length;
+export const isArrayUnique = (items) => items.length === [...new Set(items)].length;
 
 /**
  * Перемешивает элементы массива случайным образом.
  * Использует алгоритм тасования Фишера-Йетса (источник: https://learn.javascript.ru/task/shuffle)
- * @param {Array} array - Исходный массив.
+ * @param {Array} items - Исходный массив.
  * @returns {Array} Вовзращает перемешанную неглубокую копию исходного массива.
  */
-export const shuffle = (array) => {
-  array = [...array];
+export const shuffle = (items) => {
+  items = [...items];
 
-  for (let i = array.length - 1; i > 0; i--) {
+  for (let i = items.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
 
-    [array[i], array[j]] = [array[j], array[i]];
+    [items[i], items[j]] = [items[j], items[i]];
   }
 
-  return array;
+  return items;
 };
 
 export const sortByComments = (pictureA, pictureB) => pictureB.comments.length - pictureA.comments.length;
